@@ -10,6 +10,7 @@ import json
 def handle_request(request):
     headers = {
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json'
     }
     incoming_dict = request.get_json()

@@ -5,6 +5,8 @@
 # python functions.py
 
 import json
+import googlemaps
+from datetime import datetime
 
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
@@ -58,6 +60,19 @@ def dev_outgoing_dict():
 # Executing this function counts towards our API request quotas.
 def prod_outgoing_dict(incoming_dict):
     # TODO: Query maps API
+    gmaps = googlemaps.Client(key='MAP_API_KEY')
+    gmaps = googlemaps.Client(key=os.environ[‘GOOGLE_MAPS_API_KEY’])
+    start_loc = gmaps.geocode(incoming_dict["start_location"])
+    end_loc = gmaps.geocode(incoming_dict["end_location"])
+    print(start_loc[0]["geometry"]["location"]["lat"], start_loc[0]["geometry"]["location"]["lng"])
+    print(end_loc[0]["geometry"]["location"]["lat"], end_loc[0]["geometry"]["location"]["lng"])
+    now = datetime.now()
+    directions_result = gmaps.directions(incoming_dict["start_location"],
+                                     incoming_dict["end_location"],
+                                     mode="bicycling",
+                                     departure_time=now)
+    print(directions_result)
+
     # TODO: Query weather API
     # TODO: Do calculations...
     # TODO: Update outgoing_dict accordingly!
@@ -74,15 +89,12 @@ def test_prod_outgoing_dict():
     # This dictionary is an example of what index.html should be sending to
     # functions.py.
     fake_incoming_dict = {
-        "env": "prod",
-        "start_location": {
-            "lat": "38.8977",
-            "long": "77.0365"
-        },
-        "end_location": {
-            "lat": "37.4220",
-            "long": "122.0841"
-        }
+       "env": "prod",
+        "start_location":
+            "Murfreesboro, TN"
+        ,
+        "end_location": 
+            "Nashville, TN"
     }
     outgoing_dict = prod_outgoing_dict(fake_incoming_dict)
     print(json.dumps(outgoing_dict))

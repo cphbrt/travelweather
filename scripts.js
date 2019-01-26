@@ -5,7 +5,9 @@ var tw = (function() {
   var hour = date.getHours();
 
   return {
-    'maptime': function() {
+    date: date,
+
+    maptime: function() {
       var number = hour;
 
       $('main > *').each(function() {
@@ -14,9 +16,10 @@ var tw = (function() {
         element.attr('data-time', number++);
       });
     },
-    'coordinates': {
-      'latitude': null,
-      'longitude': null
+
+    coordinates: {
+      latitude: null,
+      longitude: null
     }
   };
 }());
@@ -37,8 +40,6 @@ $('button[name="coordinates"]').on({
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
-      }, function() {
-        alert('FAIL');
       });
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -48,33 +49,63 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
-    var dataToSend = {
-      'env': 'dev'
+    var articles = $('main > article');
+    var send = {
+      env: 'dev'
     };
+
+    if(articles.length) {
+      articles.remove();
+    }
 
     $.ajax({
       type: 'POST',
       url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
-      data: JSON.stringify(dataToSend),
+      data: JSON.stringify(send),
       contentType: "application/json; charset=utf-8",
       dataType: 'json',
       crossDomain: true,
       success: function(get) {
-          var footer = $('main > footer');
-          var template = $('body > template').html().trim();
+        var footer = $('main > footer');
+        var template = $('body > template').html();
 
-          $(template).insertBefore(footer);
-          $(template).insertBefore(footer);
-          $(template).insertBefore(footer);
-          $(template).insertBefore(footer);
+        // console.log(get);
 
-          tw.maptime();
+        $.each(get.hourly, function(index, hour) {
+          var cloned = $(template);
 
-          $('html, body').animate({
-            'scrollTop': $('main > article:first-of-type').offset().top,
-          }, 900, 'swing');
+          cloned.find('[data-fill]').each(function(index, item) {
+            var fill = $(item).data('fill');
 
-          console.log(get);
+            switch(fill) {
+              case 'time':
+                $(item).html(tw.date.toLocaleTimeString('en-US'));
+              break;
+
+              case 'timezone':
+                // $(item).html(hour.temp);
+              break;
+
+              case 'temperature':
+                $(item).html(hour.temp);
+              break;
+
+              case 'location':
+                // $(item).html(hour.temp);
+              break;
+            }
+          });
+
+          cloned.insertBefore(footer);
+        });
+
+        tw.maptime();
+
+        $('button[name="route"]').text('Reroute');
+
+        $('html, body').animate({
+          'scrollTop': $('main > article:first-of-type').offset().top,
+        }, 900, 'swing');
       }
     });
 

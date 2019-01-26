@@ -61,17 +61,13 @@ def dev_outgoing_dict():
 def prod_outgoing_dict(incoming_dict):
     # TODO: Query maps API
     gmaps = googlemaps.Client(key='MAP_API_KEY')
-    gmaps = googlemaps.Client(key=os.environ[‘GOOGLE_MAPS_API_KEY’])
     start_loc = gmaps.geocode(incoming_dict["start_location"])
     end_loc = gmaps.geocode(incoming_dict["end_location"])
-    print(start_loc[0]["geometry"]["location"]["lat"], start_loc[0]["geometry"]["location"]["lng"])
-    print(end_loc[0]["geometry"]["location"]["lat"], end_loc[0]["geometry"]["location"]["lng"])
     now = datetime.now()
     directions_result = gmaps.directions(incoming_dict["start_location"],
                                      incoming_dict["end_location"],
-                                     mode="bicycling",
+                                     mode=incoming_dict["method"],
                                      departure_time=now)
-    print(directions_result)
 
     # TODO: Query weather API
     # TODO: Do calculations...

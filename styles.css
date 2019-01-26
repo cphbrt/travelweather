@@ -1,7 +1,17 @@
 body {
   font-size: 14px;
   padding-top: 50px;
-  background-color: lightgrey;
+}
+
+main > * {
+  width: 100%;
+}
+
+section {
+  width: 100%;
+  max-width: 400px;
+  margin: 0px auto;
+  background-color: #FFFFFF;
 }
 
 label{
@@ -11,11 +21,7 @@ label{
   align-items: center;
 
 }
-section{
-  text-align: center;
-  margin: 10px,auto;
 
-}
 article{
   text-align: center;
   margin: 10px,auto;

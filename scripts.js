@@ -14,8 +14,10 @@ $('button[name="coordinates"]').on({
     if(navigator.geolocation) {
       var input = $('input[name="origin"]');
 
+      input.prop('disabled', true);
+
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.val('Your Location');
+        input.prop('disabled', false).val('Your Location');
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;

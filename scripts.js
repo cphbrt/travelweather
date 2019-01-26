@@ -36,10 +36,7 @@ $('button[name="coordinates"]').on({
       input.prop('disabled', true);
 
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.prop('disabled', false).val('Your Location');
-
-        tw.coordinates.latitude = position.coords.latitude;
-        tw.coordinates.longitude = position.coords.longitude;
+        input.prop('disabled', false).val(position.coords.latitude + ',' + position.coords.longitude);
       });
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -53,10 +50,7 @@ $('form[name="itinerary"]').on({
     var formData = new FormData(this);
     var send = {
       env: 'dev',
-      start_location: {
-        lat: tw.coordinates.latitude,
-        long: tw.coordinates.longitude
-      },
+      start_location: formData.get('origin'),
       end_location: formData.get('destination'),
       method: formData.get('method')
     };
@@ -75,8 +69,6 @@ $('form[name="itinerary"]').on({
       success: function(get) {
         var footer = $('main > footer');
         var template = $('body > template').html();
-
-        // console.log(get);
 
         $.each(get.hourly, function(index, hour) {
           var cloned = $(template);

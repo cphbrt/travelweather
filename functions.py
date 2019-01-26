@@ -88,7 +88,9 @@ def prod_outgoing_dict(incoming_dict):
     points = polyline.decode(directions_response[0]["overview_polyline"]["points"])
 
     # get the middle point
-    lat, lng = points[int(len(points) / 2)]
+    mid_lat, mid_lng = points[int(len(points) / 2)]
+    qtr_lat, qrt_lng = points[int(len(points)/4)]
+    thqtr_lat, thqtr_lng = points[(int(len(points)/4)*3)]
 
     # get mid directions 
     middirections_response = gmaps.directions(

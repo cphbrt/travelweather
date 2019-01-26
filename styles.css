@@ -196,6 +196,16 @@ footer > section {
   border-radius: 0px 0px 6px 6px;
 }
 
+footer > p {
+  max-width: 300px;
+  margin: 20px auto 0px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 20px;
+  box-sizing: border-box;
+  opacity: 0.60;
+}
+
 form fieldset:not(:first-child) {
   margin-top: 20px;
 }

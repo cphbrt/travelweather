@@ -1,33 +1,30 @@
-
 <!DOCTYPE html>
 <html>
-<body>
-<p>This gets your <b>location</b>!</p>
-<p>Click the button to get your coordinates.</p>
+  <body>
+    <p>This gets your <b>location</b>!</p>
+    <p>Click the button to get your coordinates.</p>
 
-<button onclick="getLocation()">Try It</button>
+    <button onclick="getLocation()">Try It</button>
 
-<p id="demo"></p>
+    <p id="demo"></p>
 
-<script>
-var x = document.getElementById("demo");
+    <script>
+      var x = document.getElementById("demo");
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
+      function getLocation() {
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-}
+      function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+      }
 
-var lad = position.coords.latitude
-var log = position.coords.longitude
-</script>
-
-</body>
+      var lad = position.coords.latitude
+      var log = position.coords.longitude
+    </script>
+  </body>
 </html>

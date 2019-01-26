@@ -2,29 +2,74 @@
 <html>
   <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" />
-    <link href="/styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
     <main>
       <header>
+        <figure></figure>
+
         <section>
           <form name="itinerary">
-            <label>Origin:</label>
-            <input type="text" name="origin" />
-            <button type="button" name="coordinates">Get Coordinates</button>
-            <label>Destination:</label>
-            <input type="text" name="destination" />
-            <button type="submit">Route</button>
+            <fieldset>
+              <div class="split">
+                <input type="text" name="origin" placeholder="Origin" />
+                <button type="button" name="coordinates"></button><br>
+              </div>
+              <input type="text" name="destination" placeholder="Destination" />
+            </fieldset>
+
+            <!-- <fieldset>
+              <label>Time:</label>
+              <input type="time" name="time" /><br>
+              <button type="button1">Monday</button>
+              <button type="button2">Tuesday</button>
+              <button type="button2">Wednesday</button>
+              <button type="button2">Thursday</button>
+            </fieldset> -->
+
+            <fieldset>
+              <div class="split">
+                <div class="methods">
+                  <input id="walk" type="radio" name="method" value="walk" />
+                  <input id="cycle" type="radio" name="method" value="cycle" checked="checked" />
+                  <input id="drive" type="radio" name="method" value="drive" />
+                  <label for="walk"></label>
+                  <label for="cycle"></label>
+                  <label for="drive"></label>
+                </div>
+                <button type="submit" name="route">Route</button>
+              </div>
+            </fieldset>
           </form>
         </section>
       </header>
-      <article>
-        <section></section>
-      </article>
+
       <footer>
+        <section></section>
       </footer>
     </main>
+
+    <template>
+      <article>
+        <section>
+          <h2>
+            <label>+2</label>
+          </h2>
+          <dl>
+            <dt>Temperature</dt>
+            <dd></dd>
+            <dt>Location</dt>
+            <dd></dd>
+            <dt>Time</dt>
+            <dd></dd>
+          </dl>
+        </section>
+      </article>
+    </template>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/scripts.js"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>

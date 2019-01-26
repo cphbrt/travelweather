@@ -1,0 +1,257 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+fieldset,
+input,
+button {
+  margin: 0px;
+  padding: 0px;
+  outline: 0px;
+  border: 0px;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main > * {
+  position: relative;
+  width: 100%;
+  padding: 0px 40px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+main > header {
+  padding-top: 60px;
+}
+
+main > footer {
+  padding-bottom: 60px;
+  flex-grow: 1;
+}
+
+main > [data-time='0'] {
+  background-color: #383663;
+}
+
+main > [data-time='1'],
+main > [data-time='23'] {
+  background-color: #33406F;
+}
+
+main > [data-time='2'],
+main > [data-time='22'] {
+  background-color: #2F4A7A;
+}
+
+main > [data-time='3'],
+main > [data-time='21'] {
+  background-color: #2A5486;
+}
+
+main > [data-time='4'],
+main > [data-time='20'] {
+  background-color: #255E91;
+}
+
+main > [data-time='5'],
+main > [data-time='19'] {
+  background-color: #21689D;
+}
+
+main > [data-time='6'],
+main > [data-time='18'] {
+  background-color: #1C72A8;
+}
+
+main > [data-time='7'],
+main > [data-time='17'] {
+  background-color: #177CB4;
+}
+
+main > [data-time='8'],
+main > [data-time='16'] {
+  background-color: #1386C0;
+}
+
+main > [data-time='9'],
+main > [data-time='15'] {
+  background-color: #0E90CB;
+}
+
+main > [data-time='10'],
+main > [data-time='14'] {
+  background-color: #099AD7;
+}
+
+main > [data-time='11'],
+main > [data-time='13'] {
+  background-color: #05A4E2;
+}
+
+main > [data-time='12'] {
+  background-color: #00AEEE;
+}
+
+* > section {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0px auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  box-sizing: border-box;
+}
+
+header > figure {
+  width: 100px;
+  height: 100px;
+  margin: 0px auto 40px;
+  background-color: #EEC200;
+  border-radius: 100%;
+}
+
+header > section {
+  border-radius: 6px 6px 0px 0px;
+}
+
+header + footer {
+  top: -20px;
+  margin-bottom: -20px;
+}
+
+article > section {
+  height: 150px;
+  padding: 15px 20px 15px 67px;
+}
+
+article > section:before,
+article > section:after {
+  content: '';
+  position: absolute;
+  background-color: #EE0057;
+}
+
+article > section:before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 33px;
+  width: 4px;
+}
+
+article:first-of-type > section:before {
+  top: 20px;
+  border-radius: 2px 2px 0px 0px;
+}
+
+article:last-of-type > section:before {
+  bottom: calc(100% - 30px);
+  border-radius: 0px 0px 2px 2px;
+}
+
+article > section:after {
+  top: 20px;
+  left: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+article h2 {
+  margin: 0px;
+}
+
+footer > section {
+  padding-top: 0px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+form fieldset:not(:first-child) {
+  margin-top: 20px;
+}
+
+form input,
+form button {
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+
+form input {
+  width: 100%;
+  background-color: #EFEFEF;
+  box-sizing: border-box;
+}
+
+form input:not(:first-child) {
+  margin-top: 10px;
+}
+
+form button {
+  font-weight: 500;
+  color: #FFFFFF;
+  border: 0px;
+  cursor: pointer;
+}
+
+form div.methods {
+  display: inline-flex;
+  border-radius: 4px;
+  flex-basis: auto !important;
+  overflow: hidden;
+}
+
+form div.methods > input {
+  display: none;
+}
+
+form div.methods > input ~ label {
+  width: 36px;
+  height: 36px;
+  background-color: #EFEFEF;
+  cursor: pointer;
+}
+
+form div.methods > input[id='walk']:checked ~ label[for='walk'],
+form div.methods > input[id='cycle']:checked ~ label[for='cycle'],
+form div.methods > input[id='drive']:checked ~ label[for='drive'] {
+  background-color: #DADADA;
+}
+
+form button[name='route'] {
+  margin-left: auto !important;
+  background-color: #EE0057;
+}
+
+div.split {
+  display: flex;
+  align-items: flex-start;
+}
+
+div.split > *:not(:first-child) {
+  margin-left: 10px;
+}
+
+div.split > *:not(button) {
+  flex-basis: 100%;
+}
+
+.days{
+  align-items: center;
+}
+
+button[name="coordinates"]{
+  background-image: url("https://cdn0.iconfinder.com/data/icons/map-3/1024/location-512.png");
+  background-size: cover;
+}

@@ -145,7 +145,7 @@ article > section:before,
 article > section:after {
   content: '';
   position: absolute;
-  background-color: #EE0057;
+  background-color: #9A11E9;
 }
 
 article > section:before {
@@ -180,6 +180,15 @@ article h2 {
   font-size: 24px;
   font-weight: 300;
   line-height: 24px;
+}
+
+article hr {
+  height: 2px;
+  width: 60%;
+  margin: 10px 0px;
+  background-color: #EFEFEF;
+  border-width: 0px;
+  border-radius: 1px;
 }
 
 footer > section {
@@ -256,6 +265,22 @@ form button[name='coordinates'] svg {
 form button[name='route'] {
   margin-left: auto !important;
   background-color: #EE0057;
+}
+
+form button.loading {
+  position: relative;
+  color: rgba(0, 0, 0, 0.00) !important;
+}
+
+form button.loading:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23FFFFFF' d='M18.2361946,14.7099075l-0.8379612-0.4837904c-0.2229805-0.1287346-0.3034248-0.4088192-0.1876488-0.6388025 c1.2127762-2.409936,1.1405811-5.2979498-0.2167435-7.6438222c-1.3537827-2.3498957-3.8188124-3.8565192-6.5122547-4.0111694 c-0.2571068-0.0147693-0.459445-0.2244306-0.459445-0.4819396V0.4828429c0-0.2778313,0.2337265-0.4964665,0.5111952-0.4821806 c3.3624678,0.1732824,6.4452934,2.0468731,8.1333275,4.9770198c1.6927013,2.9254384,1.7738285,6.5319338,0.2426987,9.5306129 C18.7830029,14.755703,18.4767609,14.8487825,18.2361946,14.7099075z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  transform: rotate(0) translate(-50%, -50%);
+  animation: spinaround 2.50s linear infinite;
 }
 
 div.split {

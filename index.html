@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
@@ -10,23 +11,25 @@
         <section>
           <form name="itinerary">
             <fieldset>
-              <label>Origin:</label>
-              <input type="text" name="origin" />
-              <button type="button" name="coordinates"></button><br>
-              <label>Destination:</label>
-              <input type="text" name="destination" />
+              <div class="split">
+                <input type="text" name="origin" placeholder="Origin" />
+                <button type="button" name="coordinates"></button><br>
+              </div>
+              <input type="text" name="destination" placeholder="Destination" />
             </fieldset>
 
-            <fieldset>
+            <!-- <fieldset>
               <label>Time:</label>
               <input type="time" name="time" /><br>
               <button type="button1">Monday</button>
               <button type="button2">Tuesday</button>
               <button type="button2">Wednesday</button>
               <button type="button2">Thursday</button>
-            </fieldset>
+            </fieldset> -->
 
-            <button type="submit" name="route">Route</button>
+            <div class="split">
+              <button type="submit" name="route">Route</button>
+            </div>
           </form>
         </section>
       </header>

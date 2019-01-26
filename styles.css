@@ -1,5 +1,15 @@
 body {
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
+}
+
+fieldset,
+input,
+button {
+  margin: 0px;
+  padding: 0px;
+  outline: 0px;
+  border: 0px;
 }
 
 main > * {
@@ -88,17 +98,61 @@ main > [data-time='12'] {
 
 header > section {
   padding-bottom: 0px;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 6px 6px 0px 0px;
+}
+
+article > section {
+
 }
 
 footer > section {
   padding-top: 0px;
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+form fieldset:not(:first-child) {
+  margin-top: 20px;
+}
+
+form input,
+form button {
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+
+form input {
+  width: 100%;
+  background-color: #ECECEC;
+  box-sizing: border-box;
+}
+
+form input:not(:first-child) {
+  margin-top: 10px;
+}
+
+form button {
+  font-weight: 500;
+  color: #FFFFFF;
+  border: 0px;
+}
+
+form button[type='submit'] {
+  margin-top: 20px;
+  background-color: #EE0057;
+}
+
+div.split {
+  display: flex;
+}
+
+div.split > *:not(:first-child) {
+  margin-left: 10px;
 }
 
 label{
   font-size: 15px;
 }
+
 .days{
   align-items: center;
 
@@ -108,17 +162,17 @@ article{
   text-align: center;
   margin: 10px,auto;
 }
+
 footer{
   text-align: center;
   margin: 10px,auto;
 }
+
 button[name="coordinates"]{
   background-image: url("https://cdn0.iconfinder.com/data/icons/map-3/1024/location-512.png");
   background-size: cover;
-  width: 35px;
-  height: 35px;
-  border-color: black;
 }
+
 button[name="route"]{
  position: right;
 

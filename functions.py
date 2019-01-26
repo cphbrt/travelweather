@@ -6,7 +6,10 @@
 
 import json
 import googlemaps
-from datetime import datetime
+from darksky import forecast
+from datetime import date, timedelta, datetime
+import os
+import polyline
 
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
@@ -59,23 +62,92 @@ def dev_outgoing_dict():
 # This generates the actual real-world, API-querying response to its input.
 # Executing this function counts towards our API request quotas.
 def prod_outgoing_dict(incoming_dict):
-    # TODO: Query maps API
-    gmaps = googlemaps.Client(key='MAP_API_KEY')
+    # TODONE: GOOGLE MAPS
+    mapApiKey = os.getenv('MAP_API_KEY')
+    gmaps = googlemaps.Client(key=mapApiKey)
     start_loc = gmaps.geocode(incoming_dict["start_location"])
     end_loc = gmaps.geocode(incoming_dict["end_location"])
     now = datetime.now()
-    directions_result = gmaps.directions(incoming_dict["start_location"],
-                                     incoming_dict["end_location"],
-                                     mode=incoming_dict["method"],
-                                     departure_time=now)
+    
+    ## get lat/long
+    start_lat =  start_loc[0]['geometry']['location']['lat']
+    start_long = start_loc[0]['geometry']['location']['lng']
 
-    # TODO: Query weather API
+    end_lat =  end_loc[0]['geometry']['location']['lat']
+    end_long = end_loc[0]['geometry']['location']['lng']
+
+    # get directions 
+    directions_response = gmaps.directions(
+        incoming_dict["start_location"], 
+        incoming_dict["end_location"], 
+        mode=incoming_dict["method"], 
+        departure_time=datetime.now()
+    )
+
+    # get all the points along the first route returned
+    points = polyline.decode(directions_response[0]["overview_polyline"]["points"])
+
+    # get the middle point
+    lat, lng = points[int(len(points) / 2)]
+
+    # get mid directions 
+    middirections_response = gmaps.directions(
+        incoming_dict["start_location"], 
+        "{},{}".format(lat, lng), 
+        mode="driving", 
+        departure_time=datetime.now()
+    )
+    #calc arrival times
+    mid_arrival_sec = middirections_response[0]["legs"][0]["duration"]["value"]
+    mid_arrival = int(round(mid_arrival_sec/60/60))
+
+    end_arrival_sec = directions_response[0]["legs"][0]["duration"]["value"]
+    end_arrival = int(round(end_arrival_sec/60/60))
+
+    # TODONE: DARK SKY 
+    skyApiKey = os.getenv('SKY_API_KEY')
+
+    # coordiate pairs
+    start_coordinates = start_lat, start_long
+    mid_coordinates = lat, lng
+    end_coordinates = end_lat, end_long
+
+    # get forcasts
+    start_forecast = forecast(skyApiKey, *start_coordinates)
+    mid_forecast = forecast(skyApiKey, *mid_coordinates)
+    end_forecast = forecast(skyApiKey, *end_coordinates)
+
+    start_weather = start_forecast.hourly[0].summary
+    start_temp = start_forecast.currently.temperature
+
+    mid_weather = mid_forecast.hourly[mid_arrival].summary
+    mid_temp = mid_forecast.hourly[mid_arrival].temperature
+
+    end_weather = end_forecast.hourly[end_arrival].summary
+    end_temp = end_forecast.hourly[end_arrival].temperature
+
+
     # TODO: Do calculations...
-    # TODO: Update outgoing_dict accordingly!
+
     outgoing_dict = {
-        "env": "prod",
-        "content": "real deal"
-    }
+            "hourly": [
+                {   "location": "start",
+                    "weather": start_weather,
+                    "temp": start_temp,
+                },
+                {   "location": "mid",
+                    "weather": mid_weather,
+                    "temp": mid_temp,
+                },
+                {
+                    "location": "end",
+                    "weather": end_weather,
+                    "temp": end_temp
+                }
+            ]
+        }
+        
+    # TODONE: Update outgoing_dict accordingly!
     return outgoing_dict
 
 # This has a fake simulation the input we expect to get from index.html and it
@@ -85,12 +157,12 @@ def test_prod_outgoing_dict():
     # This dictionary is an example of what index.html should be sending to
     # functions.py.
     fake_incoming_dict = {
-       "env": "prod",
-        "start_location":
-            "Murfreesboro, TN"
-        ,
-        "end_location": 
-            "Nashville, TN"
+        "env": "prod",
+        "start_location": "Murfreesboro, TN",
+        "end_location": "Nashville, TN",
+        "method":
+            "driving"
+
     }
     outgoing_dict = prod_outgoing_dict(fake_incoming_dict)
     print(json.dumps(outgoing_dict))

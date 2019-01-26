@@ -16,7 +16,7 @@ def handle_request(request):
     elif incoming_dict['env'] == "dev":
         outgoing_dict = dev_outgoing_dict()
     elif incoming_dict['env'] == "prod":
-        outgoing_dict = prod_outgoing_dict()
+        outgoing_dict = prod_outgoing_dict(incoming_dict)
     else:
         outgoing_dict = {"env":"misdeclared"}
     return (json.dumps(outgoing_dict), 200, {

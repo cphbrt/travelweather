@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" />
+    <link href="/styles.css" rel="stylesheet" />
+  </head>
   <body>
+<header> </header>
+<main>
+  <form>
+  	Starting Location:<br><img src=""
+  	<input type="text" name="start"><br>
+  	End Location:<br>
+  	<input type="text" name="end">
+
+  </form>
     <p>This gets your <b>location</b>!</p>
     <p>Click the button to get your coordinates.</p>
 
     <button onclick="getLocation()">Try It</button>
 
     <p id="demo"></p>
+</main>
+<footer> </footer>
 
-    <script>
-      var x = document.getElementById("demo");
-
-      function getLocation() {
-        if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-      }
-
-      function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-      }
-
-      var lad = position.coords.latitude
-      var log = position.coords.longitude
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/scripts.js"></script>
   </body>
 </html>

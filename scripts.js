@@ -1,13 +1,27 @@
 var tw = (function() {
   'use strict';
 
+  var date = new Date();
+  var hour = date.getHours();
+
   return {
+    'maptime': function() {
+      $('main > *').each(function() {
+        var element = $(this);
+
+        element.attr('data-time', hour++);
+      });
+    },
     'coordinates': {
       'latitude': null,
       'longitude': null
     }
   };
 }());
+
+$(function() {
+  tw.maptime();
+});
 
 $('button[name="coordinates"]').on({
   'click': function() {
@@ -40,6 +54,8 @@ $('form[name="itinerary"]').on({
       url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
       data: post
     }, function(get) {
+      var template = $('body > template').clone();
+
       console.log(get);
     });
 

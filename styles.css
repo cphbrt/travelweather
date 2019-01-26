@@ -1,17 +1,99 @@
 body {
-  font-size: 15px;
-  padding-top: 50px;
+  font-size: 14px;
 }
 
 main > * {
   width: 100%;
 }
 
-section {
+main > header {
+  padding-top: 40px;
+}
+
+main > footer {
+  padding-bottom: 40px;
+}
+
+main > [data-time='0'] {
+  background-color: #383663;
+}
+
+main > [data-time='1'],
+main > [data-time='23'] {
+  background-color: #33406F;
+}
+
+main > [data-time='2'],
+main > [data-time='22'] {
+  background-color: #2F4A7A;
+}
+
+main > [data-time='3'],
+main > [data-time='21'] {
+  background-color: #2A5486;
+}
+
+main > [data-time='4'],
+main > [data-time='20'] {
+  background-color: #255E91;
+}
+
+main > [data-time='5'],
+main > [data-time='19'] {
+  background-color: #21689D;
+}
+
+main > [data-time='6'],
+main > [data-time='18'] {
+  background-color: #1C72A8;
+}
+
+main > [data-time='7'],
+main > [data-time='17'] {
+  background-color: #177CB4;
+}
+
+main > [data-time='8'],
+main > [data-time='16'] {
+  background-color: #1386C0;
+}
+
+main > [data-time='9'],
+main > [data-time='15'] {
+  background-color: #0E90CB;
+}
+
+main > [data-time='10'],
+main > [data-time='14'] {
+  background-color: #099AD7;
+}
+
+main > [data-time='11'],
+main > [data-time='13'] {
+  background-color: #05A4E2;
+}
+
+main > [data-time='12'] {
+  background-color: #00AEEE;
+}
+
+* > section {
   width: 100%;
   max-width: 400px;
   margin: 0px auto;
+  padding: 20px;
   background-color: #FFFFFF;
+  box-sizing: border-box;
+}
+
+header > section {
+  padding-bottom: 0px;
+  border-radius: 8px 8px 0px 0px;
+}
+
+footer > section {
+  padding-top: 0px;
+  border-radius: 0px 0px 8px 8px;
 }
 
 label{

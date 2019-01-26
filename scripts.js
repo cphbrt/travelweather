@@ -18,8 +18,8 @@ var tw = (function() {
     },
 
     coordinates: {
-      latitude: null,
-      longitude: null
+      latitude: false,
+      longitude: false
     }
   };
 }());
@@ -36,7 +36,10 @@ $('button[name="coordinates"]').on({
       input.prop('disabled', true);
 
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.prop('disabled', false).val(position.coords.latitude + ',' + position.coords.longitude);
+        input.prop('disabled', false).val('Your Location');
+
+        tw.coordinates.latitude = position.coords.latitude;
+        tw.coordinates.longitude = position.coords.longitude;
       });
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -48,12 +51,16 @@ $('form[name="itinerary"]').on({
   'submit': function(event) {
     var articles = $('main > article');
     var formData = new FormData(this);
-    var send = {
+    var sendData = {
       env: 'dev',
       start_location: formData.get('origin'),
       end_location: formData.get('destination'),
       method: formData.get('method')
     };
+
+    if(tw.coordinates.latitude && tw.coordinates.longitude) {
+      sendData.start_location = Object.values(tw.coordinates).join();
+    }
 
     if(articles.length) {
       articles.remove();
@@ -62,7 +69,7 @@ $('form[name="itinerary"]').on({
     $.ajax({
       type: 'POST',
       url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
-      data: JSON.stringify(send),
+      data: JSON.stringify(sendData),
       contentType: "application/json; charset=utf-8",
       dataType: 'json',
       crossDomain: true,

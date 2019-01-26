@@ -49,9 +49,14 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
+    var articles = $('main > article');
     var send = {
       env: 'dev'
     };
+
+    if(articles.length) {
+      articles.remove();
+    }
 
     $.ajax({
       type: 'POST',
@@ -95,6 +100,8 @@ $('form[name="itinerary"]').on({
         });
 
         tw.maptime();
+
+        $('button[name="route"]').text('Reroute');
 
         $('html, body').animate({
           'scrollTop': $('main > article:first-of-type').offset().top,

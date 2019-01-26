@@ -208,8 +208,25 @@ form button {
 
 form input {
   width: 100%;
+  font-weight: 500;
+  color: #565656;
   background-color: #EFEFEF;
   box-sizing: border-box;
+}
+
+form input::-webkit-input-placeholder {
+  font-weight: 400;
+  color: #B1B1B1;
+}
+
+form input:-ms-input-placeholder {
+  font-weight: 400;
+  color: #B1B1B1;
+}
+
+form input::placeholder {
+  font-weight: 400;
+  color: #B1B1B1;
 }
 
 form input:not(:first-child) {

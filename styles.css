@@ -1,3 +1,8 @@
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -12,16 +17,26 @@ button {
   border: 0px;
 }
 
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 main > * {
   width: 100%;
+  padding: 0px 40px;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 main > header {
-  padding-top: 40px;
+  padding-top: 60px;
 }
 
 main > footer {
-  padding-bottom: 40px;
+  padding-bottom: 60px;
+  flex-grow: 1;
 }
 
 main > [data-time='0'] {
@@ -96,13 +111,21 @@ main > [data-time='12'] {
   box-sizing: border-box;
 }
 
+header > figure {
+  width: 100px;
+  height: 100px;
+  margin: 0px auto 40px;
+  background-color: #EEC200;
+  border-radius: 100%;
+}
+
 header > section {
   padding-bottom: 0px;
   border-radius: 6px 6px 0px 0px;
 }
 
 article > section {
-
+  height: 150px;
 }
 
 footer > section {
@@ -122,7 +145,7 @@ form button {
 
 form input {
   width: 100%;
-  background-color: #ECECEC;
+  background-color: #EFEFEF;
   box-sizing: border-box;
 }
 
@@ -134,47 +157,56 @@ form button {
   font-weight: 500;
   color: #FFFFFF;
   border: 0px;
+  cursor: pointer;
 }
 
-form button[type='submit'] {
-  margin-top: 20px;
+form div.methods {
+  display: inline-flex;
+  border-radius: 4px;
+  flex-basis: auto !important;
+  overflow: hidden;
+}
+
+form div.methods > input {
+  display: none;
+}
+
+form div.methods > input ~ label {
+  width: 36px;
+  height: 36px;
+  background-color: #EFEFEF;
+  cursor: pointer;
+}
+
+form div.methods > input[id='walk']:checked ~ label[for='walk'],
+form div.methods > input[id='cycle']:checked ~ label[for='cycle'],
+form div.methods > input[id='drive']:checked ~ label[for='drive'] {
+  background-color: #DADADA;
+}
+
+form button[name='route'] {
+  margin-left: auto !important;
   background-color: #EE0057;
 }
 
 div.split {
   display: flex;
+  align-items: flex-start;
 }
 
 div.split > *:not(:first-child) {
   margin-left: 10px;
 }
 
-label{
-  font-size: 15px;
+div.split > *:not(button) {
+  flex-basis: 100%;
 }
 
 .days{
   align-items: center;
-
-}
-
-article{
-  text-align: center;
-  margin: 10px,auto;
-}
-
-footer{
-  text-align: center;
-  margin: 10px,auto;
 }
 
 button[name="coordinates"]{
   background-image: url("https://cdn0.iconfinder.com/data/icons/map-3/1024/location-512.png");
   background-size: cover;
-}
-
-button[name="route"]{
- position: right;
-
-
 }

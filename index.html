@@ -8,6 +8,8 @@
   <body>
     <main>
       <header>
+        <figure></figure>
+
         <section>
           <form name="itinerary">
             <fieldset>
@@ -27,9 +29,19 @@
               <button type="button2">Thursday</button>
             </fieldset> -->
 
-            <div class="split">
-              <button type="submit" name="route">Route</button>
-            </div>
+            <fieldset>
+              <div class="split">
+                <div class="methods">
+                  <input id="walk" type="radio" name="method" value="walk" />
+                  <input id="cycle" type="radio" name="method" value="cycle" checked="checked" />
+                  <input id="drive" type="radio" name="method" value="drive" />
+                  <label for="walk"></label>
+                  <label for="cycle"></label>
+                  <label for="drive"></label>
+                </div>
+                <button type="submit" name="route">Route</button>
+              </div>
+            </fieldset>
           </form>
         </section>
       </header>

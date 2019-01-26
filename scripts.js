@@ -6,10 +6,12 @@ var tw = (function() {
 
   return {
     'maptime': function() {
+      var number = hour;
+
       $('main > *').each(function() {
         var element = $(this);
 
-        element.attr('data-time', hour++);
+        element.attr('data-time', number++);
       });
     },
     'coordinates': {
@@ -54,7 +56,21 @@ $('form[name="itinerary"]').on({
       url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
       data: post
     }, function(get) {
-      var template = $('body > template').clone();
+      var footer = $('main > footer');
+      var template = $('body > template').html().trim();
+
+      console.log(template);
+
+      $(template).insertBefore(footer);
+      $(template).insertBefore(footer);
+      $(template).insertBefore(footer);
+      $(template).insertBefore(footer);
+
+      tw.maptime();
+
+      $('html, body').animate({
+        'scrollTop': $('main > article:first-of-type').offset().top,
+      }, 900, 'swing');
 
       console.log(get);
     });

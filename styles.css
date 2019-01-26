@@ -24,6 +24,7 @@ main {
 }
 
 main > * {
+  position: relative;
   width: 100%;
   padding: 0px 40px;
   box-sizing: border-box;
@@ -103,6 +104,7 @@ main > [data-time='12'] {
 }
 
 * > section {
+  position: relative;
   width: 100%;
   max-width: 400px;
   margin: 0px auto;
@@ -120,12 +122,55 @@ header > figure {
 }
 
 header > section {
-  padding-bottom: 0px;
   border-radius: 6px 6px 0px 0px;
+}
+
+header + footer {
+  top: -20px;
+  margin-bottom: -20px;
 }
 
 article > section {
   height: 150px;
+  padding: 15px 20px 15px 67px;
+}
+
+article > section:before,
+article > section:after {
+  content: '';
+  position: absolute;
+  background-color: #EE0057;
+}
+
+article > section:before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 33px;
+  width: 4px;
+}
+
+article:first-of-type > section:before {
+  top: 20px;
+  border-radius: 2px 2px 0px 0px;
+}
+
+article:last-of-type > section:before {
+  bottom: calc(100% - 30px);
+  border-radius: 0px 0px 2px 2px;
+}
+
+article > section:after {
+  top: 20px;
+  left: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+article h2 {
+  margin: 0px;
 }
 
 footer > section {

@@ -50,16 +50,15 @@ $('form[name="itinerary"]').on({
   'submit': function(event) {
     var post = {
       'env': 'dev'
-    }
+    };
 
     $.post({
-      url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
-      data: post
+      'url': 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
+      'data': post,
+      'dataType': 'json'
     }, function(get) {
       var footer = $('main > footer');
       var template = $('body > template').html().trim();
-
-      console.log(template);
 
       $(template).insertBefore(footer);
       $(template).insertBefore(footer);

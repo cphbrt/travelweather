@@ -60,7 +60,8 @@ def dev_outgoing_dict():
 # Executing this function counts towards our API request quotas.
 def prod_outgoing_dict(incoming_dict):
     # TODO: Query maps API
-    gmaps = googlemaps.Client(key='')
+    gmaps = googlemaps.Client(key='MAP_API_KEY')
+    gmaps = googlemaps.Client(key=os.environ[‘GOOGLE_MAPS_API_KEY’])
     start_loc = gmaps.geocode(incoming_dict["start_location"])
     end_loc = gmaps.geocode(incoming_dict["end_location"])
     print(start_loc[0]["geometry"]["location"]["lat"], start_loc[0]["geometry"]["location"]["lng"])

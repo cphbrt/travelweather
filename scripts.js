@@ -5,7 +5,7 @@ var tw = (function() {
   var hour = date.getHours();
 
   return {
-    'maptime': function() {
+    maptime: function() {
       var number = hour;
 
       $('main > *').each(function() {
@@ -14,9 +14,9 @@ var tw = (function() {
         element.attr('data-time', number++);
       });
     },
-    'coordinates': {
-      'latitude': null,
-      'longitude': null
+    coordinates: {
+      latitude: null,
+      longitude: null
     }
   };
 }());
@@ -37,8 +37,6 @@ $('button[name="coordinates"]').on({
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
-      }, function() {
-        alert('FAIL');
       });
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -49,7 +47,7 @@ $('button[name="coordinates"]').on({
 $('form[name="itinerary"]').on({
   'submit': function(event) {
     var dataToSend = {
-      'env': 'dev'
+      env: 'dev'
     };
 
     $.ajax({

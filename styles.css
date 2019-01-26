@@ -6,6 +6,7 @@ body {
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
+  color: #565656;
 }
 
 fieldset,
@@ -15,6 +16,11 @@ button {
   padding: 0px;
   outline: 0px;
   border: 0px;
+}
+
+svg {
+  display: block;
+  width: auto;
 }
 
 main {
@@ -171,6 +177,9 @@ article > section:after {
 
 article h2 {
   margin: 0px;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 24px;
 }
 
 footer > section {
@@ -217,16 +226,31 @@ form div.methods > input {
 }
 
 form div.methods > input ~ label {
-  width: 36px;
-  height: 36px;
+  padding: 8px;
   background-color: #EFEFEF;
+  fill: #838383;
   cursor: pointer;
+}
+
+form div.methods > input ~ label[for='cycle'] svg {
+  height: 24px;
+  margin: -2px 0px;
 }
 
 form div.methods > input[id='walk']:checked ~ label[for='walk'],
 form div.methods > input[id='cycle']:checked ~ label[for='cycle'],
 form div.methods > input[id='drive']:checked ~ label[for='drive'] {
-  background-color: #DADADA;
+  fill: #FFFFFF;
+  background-color: #9A11E9;
+}
+
+form button[name='coordinates'] {
+  padding: 6px;
+  fill: #565656;
+}
+
+form button[name='coordinates'] svg {
+  height: 24px;
 }
 
 form button[name='route'] {
@@ -245,13 +269,4 @@ div.split > *:not(:first-child) {
 
 div.split > *:not(button) {
   flex-basis: 100%;
-}
-
-.days{
-  align-items: center;
-}
-
-button[name="coordinates"]{
-  background-image: url("https://cdn0.iconfinder.com/data/icons/map-3/1024/location-512.png");
-  background-size: cover;
 }

@@ -1,5 +1,5 @@
 body {
-  font-size: 14px;
+  font-size: 15px;
   padding-top: 50px;
 }
 
@@ -15,7 +15,7 @@ section {
 }
 
 label{
-  font-size: 20px;
+  font-size: 15px;
 }
 .days{
   align-items: center;
@@ -30,12 +30,15 @@ footer{
   text-align: center;
   margin: 10px,auto;
 }
-
-
-button [name="coordinates"]{
-  appearance:button;
+button[name="coordinates"]{
   background-image: url("https://cdn0.iconfinder.com/data/icons/map-3/1024/location-512.png");
+  background-size: cover;
   width: 35px;
   height: 35px;
   border-color: black;
+}
+button[name="route"]{
+ position: right;
+
+
 }

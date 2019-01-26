@@ -2,28 +2,40 @@
 <html>
   <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" />
-    <link href="/styles.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
-<header> </header>
-<main>
-  <form>
-  	Starting Location:<br><img src=""
-  	<input type="text" name="start"><br>
-  	End Location:<br>
-  	<input type="text" name="end">
+    <main>
+      <header>
+        <section>
+          <form name="itinerary">
+            <label>Origin:</label>
+            <input type="text" name="origin" />
+            <button type="button" name="coordinates">Get Coordinates</button>
+            <label>Destination:</label>
+            <input type="text" name="destination" />
+            <button type="submit">Route</button>
+            <br><br>
 
-  </form>
-    <p>This gets your <b>location</b>!</p>
-    <p>Click the button to get your coordinates.</p>
+            <button type="button1"> Monday</button>
+		        <button type="button2"> Tuesday</button>
+	          <button type="button2"> Wednesday</button>
+		        <button type="button2"> Thursday</button>
+            <br>
+            <label>Time: </label>
+            <input type="time" name="time">
+          </form>
+        </section>
+      </header>
 
-    <button onclick="getLocation()">Try It</button>
+      <article>
+        <section></section>
+      </article>
 
-    <p id="demo"></p>
-</main>
-<footer> </footer>
-
+      <footer>
+      </footer>
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="/scripts.js"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>

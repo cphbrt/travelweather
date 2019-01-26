@@ -1,5 +1,35 @@
-body{
+body {
+  font-size: 14px;
+  padding-top: 50px;
   background-color: lightgrey;
-  color: black;
-  font-size: 12pt;
+}
+
+label{
+  font-size: 20px;
+}
+.days{
+  align-items: center;
+
+}
+section{
+  text-align: center;
+  margin: 10px,auto;
+
+}
+article{
+  text-align: center;
+  margin: 10px,auto;
+}
+footer{
+  text-align: center;
+  margin: 10px,auto;
+}
+
+
+button [name="coordinates"]{
+  appearance:button;
+  background-image: url("https://cdn0.iconfinder.com/data/icons/map-3/1024/location-512.png");
+  width: 35px;
+  height: 35px;
+  border-color: black;
 }

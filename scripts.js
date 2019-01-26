@@ -48,30 +48,33 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
-    var post = {
+    var dataToSend = {
       'env': 'dev'
     };
 
-    $.post({
-      'url': 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
-      'data': post,
-      'dataType': 'json'
-    }, function(get) {
-      var footer = $('main > footer');
-      var template = $('body > template').html().trim();
+    $.ajax({
+      type: 'POST',
+      url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-2',
+      data: JSON.stringify(dataToSend),
+      contentType: "application/json; charset=utf-8",
+      dataType: 'json',
+      success: function(get) {
+          var footer = $('main > footer');
+          var template = $('body > template').html().trim();
 
-      $(template).insertBefore(footer);
-      $(template).insertBefore(footer);
-      $(template).insertBefore(footer);
-      $(template).insertBefore(footer);
+          $(template).insertBefore(footer);
+          $(template).insertBefore(footer);
+          $(template).insertBefore(footer);
+          $(template).insertBefore(footer);
 
-      tw.maptime();
+          tw.maptime();
 
-      $('html, body').animate({
-        'scrollTop': $('main > article:first-of-type').offset().top,
-      }, 900, 'swing');
+          $('html, body').animate({
+            'scrollTop': $('main > article:first-of-type').offset().top,
+          }, 900, 'swing');
 
-      console.log(get);
+          console.log(get);
+      }
     });
 
     event.preventDefault();

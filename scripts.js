@@ -58,6 +58,7 @@ $('form[name="itinerary"]').on({
       data: JSON.stringify(dataToSend),
       contentType: "application/json; charset=utf-8",
       dataType: 'json',
+      crossDomain: true,
       success: function(get) {
           var footer = $('main > footer');
           var template = $('body > template').html().trim();

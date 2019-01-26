@@ -9,21 +9,24 @@
       <header>
         <section>
           <form name="itinerary">
-            <label>Origin:</label>
-            <input type="text" name="origin" />
-            <button type="button" name="coordinates">Get Coordinates</button>
-            <label>Destination:</label>
-            <input type="text" name="destination" />
-            <button type="submit">Route</button>
-            <br><br>
+            <fieldset>
+              <label>Origin:</label>
+              <input type="text" name="origin" />
+              <button type="button" name="coordinates">Get Coordinates</button>
+              <label>Destination:</label>
+              <input type="text" name="destination" />
+            </fieldset>
 
-            <button type="button1"> Monday</button>
-		        <button type="button2"> Tuesday</button>
-	          <button type="button2"> Wednesday</button>
-		        <button type="button2"> Thursday</button>
-            <br>
-            <label>Time: </label>
-            <input type="time" name="time">
+            <fieldset>
+              <label>Time: </label>
+              <input type="time" name="time" />
+              <button type="button1">Monday</button>
+  		        <button type="button2">Tuesday</button>
+  	          <button type="button2">Wednesday</button>
+  		        <button type="button2">Thursday</button>
+            </fieldset>
+
+            <button type="submit">Route</button>
           </form>
         </section>
       </header>
@@ -33,6 +36,7 @@
       </article>
 
       <footer>
+        <section></section>
       </footer>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

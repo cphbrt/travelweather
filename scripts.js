@@ -54,7 +54,7 @@ $('form[name="itinerary"]').on({
 
     $.ajax({
       type: 'POST',
-      url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-2',
+      url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
       data: JSON.stringify(dataToSend),
       contentType: "application/json; charset=utf-8",
       dataType: 'json',

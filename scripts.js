@@ -50,8 +50,15 @@ $('button[name="coordinates"]').on({
 $('form[name="itinerary"]').on({
   'submit': function(event) {
     var articles = $('main > article');
+    var formData = new FormData(this);
     var send = {
-      env: 'dev'
+      env: 'dev',
+      start_location: {
+        lat: tw.coordinates.latitude,
+        long: tw.coordinates.longitude
+      },
+      end_location: formData.get('destination'),
+      method: formData.get('method')
     };
 
     if(articles.length) {

@@ -5,24 +5,25 @@
     <link href="/styles.css" rel="stylesheet" />
   </head>
   <body>
-<header> </header>
-<main>
-  <form>
-  	Starting Location:<br><img src=""
-  	<input type="text" name="start"><br>
-  	End Location:<br>
-  	<input type="text" name="end">
-
-  </form>
-    <p>This gets your <b>location</b>!</p>
-    <p>Click the button to get your coordinates.</p>
-
-    <button onclick="getLocation()">Try It</button>
-
-    <p id="demo"></p>
-</main>
-<footer> </footer>
-
+    <main>
+      <header>
+        <section>
+          <form name="itinerary">
+            <label>Origin:</label>
+            <input type="text" name="origin" />
+            <button type="button" name="coordinates">Get Coordinates</button>
+            <label>Destination:</label>
+            <input type="text" name="destination" />
+            <button type="submit">Route</button>
+          </form>
+        </section>
+      </header>
+      <article>
+        <section></section>
+      </article>
+      <footer>
+      </footer>
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/scripts.js"></script>
   </body>

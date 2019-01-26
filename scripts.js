@@ -1,16 +1,46 @@
-var x = document.getElementById("demo");
+var tw = (function() {
+  'use strict';
 
-function getLocation() {
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
+  return {
+    'coordinates': {
+      'latitude': null,
+      'longitude': null
+    }
+  };
+}());
+
+$('button[name="coordinates"]').on({
+  'click': function() {
+    if(navigator.geolocation) {
+      var input = $('input[name="origin"]');
+
+      navigator.geolocation.getCurrentPosition(function(position) {
+        input.val('Your Location');
+
+        tw.coordinates.latitude = position.coords.latitude;
+        tw.coordinates.longitude = position.coords.longitude;
+      }, function() {
+        alert('FAIL');
+      });
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
   }
-}
+});
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-}
+$('form[name="itinerary"]').on({
+  'submit': function(event) {
+    var post = {
+      'env': 'dev'
+    }
 
-var lad = position.coords.latitude
-var log = position.coords.longitude
+    $.post({
+      url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
+      data: post
+    }, function(get) {
+      console.log(get);
+    });
+
+    event.preventDefault();
+  }
+});

@@ -157,14 +157,12 @@ def test_prod_outgoing_dict():
     # This dictionary is an example of what index.html should be sending to
     # functions.py.
     fake_incoming_dict = {
-       "env": "prod",
-        "start_location":
-            "Murfreesboro, TN"
-        ,
-        "end_location": 
-            "Nashville, TN",
+        "env": "prod",
+        "start_location": "Murfreesboro, TN",
+        "end_location": "Nashville, TN",
         "method":
             "driving"
+
     }
     outgoing_dict = prod_outgoing_dict(fake_incoming_dict)
     print(json.dumps(outgoing_dict))

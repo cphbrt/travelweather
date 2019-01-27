@@ -18,8 +18,8 @@ var tw = (function() {
     },
 
     coordinates: {
-      latitude: null,
-      longitude: null
+      latitude: false,
+      longitude: false
     }
   };
 }());
@@ -36,7 +36,10 @@ $('button[name="coordinates"]').on({
       input.prop('disabled', true);
 
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.prop('disabled', false).val(position.coords.latitude + ',' + position.coords.longitude);
+        input.prop('disabled', false).val('Your Location');
+
+        tw.coordinates.latitude = position.coords.latitude;
+        tw.coordinates.longitude = position.coords.longitude;
       });
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -46,23 +49,30 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
+    var submit = $('button[name="route"]');
     var articles = $('main > article');
     var formData = new FormData(this);
-    var send = {
+    var sendData = {
       env: 'dev',
       start_location: formData.get('origin'),
       end_location: formData.get('destination'),
       method: formData.get('method')
     };
 
+    if(tw.coordinates.latitude && tw.coordinates.longitude) {
+      sendData.start_location = Object.values(tw.coordinates).join();
+    }
+
     if(articles.length) {
       articles.remove();
     }
 
+    submit.prop('disabled', true);
+
     $.ajax({
       type: 'POST',
       url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
-      data: JSON.stringify(send),
+      data: JSON.stringify(sendData),
       contentType: "application/json; charset=utf-8",
       dataType: 'json',
       crossDomain: true,
@@ -74,11 +84,12 @@ $('form[name="itinerary"]').on({
           var cloned = $(template);
 
           cloned.find('[data-fill]').each(function(index, item) {
-            var fill = $(item).data('fill');
+            var item = $(item);
+            var fill = item.data('fill');
 
             switch(fill) {
               case 'time':
-                $(item).html(tw.date.toLocaleTimeString('en-US'));
+                item.html(tw.date.toLocaleTimeString('en-US'));
               break;
 
               case 'timezone':
@@ -86,7 +97,13 @@ $('form[name="itinerary"]').on({
               break;
 
               case 'temperature':
-                $(item).html(hour.temp);
+                if(hour.temp > 50) {
+                  var label = item.prev('dt').find('label');
+
+                  label.prev().prependTo(label.parent());
+                }
+
+                item.html(hour.temp);
               break;
 
               case 'location':
@@ -100,7 +117,7 @@ $('form[name="itinerary"]').on({
 
         tw.maptime();
 
-        $('button[name="route"]').text('Reroute');
+        submit.text('Reroute').prop('disabled', false);
 
         $('html, body').animate({
           'scrollTop': $('main > article:first-of-type').offset().top,

@@ -144,7 +144,6 @@ header + footer {
 }
 
 article > section {
-  height: 150px;
   padding: 15px 20px 15px 67px;
 }
 
@@ -196,6 +195,41 @@ article hr {
   background-color: #EFEFEF;
   border-width: 0px;
   border-radius: 1px;
+}
+
+article dl {
+  width: 100%;
+  margin: 0px;
+  overflow: hidden;
+}
+
+article dl > dt,
+article dl > dd {
+  margin: 0px;
+  line-height: 24px;
+  float: left;
+}
+
+article dl > dt {
+  width: 40%;
+  color: #C5C5C5;
+  clear: both;
+}
+
+article dl > dt > svg {
+  height: 12px;
+  margin: 6px 7px 6px 0px;
+  fill: #C5C5C5;
+  float: left;
+}
+
+article dl > dt > svg:not(:first-child) {
+  display: none !important;
+}
+
+article dl > dd {
+  width: 60%;
+  font-weight: 500;
 }
 
 footer > section {

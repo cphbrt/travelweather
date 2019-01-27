@@ -49,6 +49,7 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
+    var submit = $('button[name="route"]');
     var articles = $('main > article');
     var formData = new FormData(this);
     var sendData = {
@@ -65,6 +66,8 @@ $('form[name="itinerary"]').on({
     if(articles.length) {
       articles.remove();
     }
+
+    submit.prop('disabled', true);
 
     $.ajax({
       type: 'POST',
@@ -114,7 +117,7 @@ $('form[name="itinerary"]').on({
 
         tw.maptime();
 
-        $('button[name="route"]').text('Reroute');
+        submit.text('Reroute').prop('disabled', false);
 
         $('html, body').animate({
           'scrollTop': $('main > article:first-of-type').offset().top,

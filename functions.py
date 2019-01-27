@@ -102,39 +102,39 @@ def prod_outgoing_dict(incoming_dict):
     mapApiKey = os.getenv('MAP_API_KEY')
     gmaps = googlemaps.Client(key=mapApiKey)
     
-    isLatLong = True
-    for char in incoming_dict["start_location"]:
-        if char.isalpha():
-            isLatLong = False
-    if not isLatLong:
-        start_loc = gmaps.geocode(incoming_dict["start_location"])
-        if isinstance(start_loc, (list,)) and len(start_loc) == 0:
-            return {"issue": "bad start_location"}
+    # isLatLong = True
+    # for char in incoming_dict["start_location"]:
+    #     if char.isalpha():
+    #         isLatLong = False
+    # if not isLatLong:
+    #     start_loc = gmaps.geocode(incoming_dict["start_location"])
+    #     if isinstance(start_loc, (list,)) and len(start_loc) == 0:
+    #         return {"issue": "bad start_location"}
     
-    ## get lat/long
-    if isLatLong:
-        arrayLatLong = incoming_dict["start_location"].split(",") # looks like [ "3.4,5.6"]
-        start_lat = arrayLatLong[0]
-        start_long = arrayLatLong[1]
-    else:
-        start_lat =  start_loc[0]['geometry']['location']['lat']
-        start_long = start_loc[0]['geometry']['location']['lng']
+    # ## get lat/long
+    # if isLatLong:
+    #     arrayLatLong = incoming_dict["start_location"].split(",") # looks like [ "3.4,5.6"]
+    #     start_lat = arrayLatLong[0]
+    #     start_long = arrayLatLong[1]
+    # else:
+    #     start_lat =  start_loc[0]['geometry']['location']['lat']
+    #     start_long = start_loc[0]['geometry']['location']['lng']
 
     # get directions 
-    if isLatLong:
-        start_location_strAddress = gmaps.reverse_geocode((start_lat, start_long))[0]["formatted_address"]
-    else:
-        start_location_strAddress = incoming_dict["start_location"]
+    # if isLatLong:
+    #     start_location_strAddress = gmaps.reverse_geocode((start_lat, start_long))[0]["formatted_address"]
+    # else:
+    #     start_location_strAddress = incoming_dict["start_location"]
 
     try:
         directions_response = gmaps.directions(
-            start_location_strAddress,
+            incoming_dict["start_location"],
             incoming_dict["end_location"],
             mode=incoming_dict["method"],
             departure_time=datetime.now()
         )
     except googlemaps.exceptions.ApiError:
-        return {"issue": "bad end_location"}
+        return {"issue": "either a bad start location or a bad end location or no route found"}
 
     # get all the points along the first route returned
     points = polyline.decode(directions_response[0]["overview_polyline"]["points"])
@@ -152,43 +152,43 @@ def prod_outgoing_dict(incoming_dict):
     iterator = int(len(points) / numIncrements)
 
     incrementLatLongs = []
-    incrementLatLongs.append({"lat": start_lat, "long": start_long})
-    incrementDirections = []
-    incrementDirections.append(directions_response)
-    incrementArrivalTime = []
-    incrementArrivalTime.append(0)
+    # incrementLatLongs.append({"lat": start_lat, "long": start_long})
+    # incrementDirections = []
+    # incrementDirections.append(directions_response)
+    # incrementArrivalTime = []
+    # incrementArrivalTime.append(0)
     finalvalue = 0
     endedEarly = False
-    for x in range(iterator, len(points), iterator):
+    for x in range(0, len(points), iterator):
         if (x + iterator > len(points)) and (len(points) - x < 2 * int(iterator / 3)):
             x = len(points) - 1
             endedEarly = True
         point_lat, point_long = points[x]
         incrementLatLongs.append({"lat": point_lat, "long": point_long})
-        point_directions_response = gmaps.directions(
-            start_location_strAddress,
-            "{},{}".format(point_lat, point_long),
-            mode=incoming_dict["method"],
-            departure_time=datetime.now()
-        )
-        incrementDirections.append(point_directions_response)
-        point_arrival_sec = point_directions_response[0]["legs"][0]["duration"]["value"]
-        point_arrival_hour = int(round(point_arrival_sec/60/60))
-        incrementArrivalTime.append(point_arrival_hour)
+        # point_directions_response = gmaps.directions(
+            # start_location_strAddress,
+            # "{},{}".format(point_lat, point_long),
+            # mode=incoming_dict["method"],
+            # departure_time=datetime.now()
+        # )
+        # incrementDirections.append(point_directions_response)
+        # point_arrival_sec = point_directions_response[0]["legs"][0]["duration"]["value"]
+        # point_arrival_hour = int(round(point_arrival_sec/60/60))
+        # incrementArrivalTime.append(point_arrival_hour)
         finalvalue = x
     if finalvalue != len(points)-1 and not endedEarly:
         point_lat, point_long = points[-1]
         incrementLatLongs.append({"lat": point_lat, "long": point_long})
-        point_directions_response = gmaps.directions(
-            start_location_strAddress,
-            "{},{}".format(point_lat, point_long),
-            mode=incoming_dict["method"],
-            departure_time=datetime.now()
-        )
-        incrementDirections.append(point_directions_response)
-        point_arrival_sec = point_directions_response[0]["legs"][0]["duration"]["value"]
-        point_arrival_hour = int(round(point_arrival_sec/60/60))
-        incrementArrivalTime.append(point_arrival_hour)
+        # point_directions_response = gmaps.directions(
+            # start_location_strAddress,
+            # "{},{}".format(point_lat, point_long),
+            # mode=incoming_dict["method"],
+            # departure_time=datetime.now()
+        # )
+        # incrementDirections.append(point_directions_response)
+        # point_arrival_sec = point_directions_response[0]["legs"][0]["duration"]["value"]
+        # point_arrival_hour = int(round(point_arrival_sec/60/60))
+        # incrementArrivalTime.append(point_arrival_hour)
 
     # DARK SKY (Weather)
     skyApiKey = os.getenv('SKY_API_KEY')
@@ -201,33 +201,36 @@ def prod_outgoing_dict(incoming_dict):
     outgoing_dict = {
         "hourly": []
     }
-    lastAccDistance = 0.0
+    # lastAccDistance = 0.0
     for x in range(0, len(incrementLatLongs)):
         thisForecast = incrementForecasts[x]
-        thisTime = incrementArrivalTime[x]
-        thisDirections = incrementDirections[x]
-        if x == 0:
-            fullAddressStr = thisDirections[0]["legs"][-1]["start_address"]
-            distance = "0.0 mi"
-        else:
-            fullAddressStr = thisDirections[0]["legs"][-1]["end_address"]
-            distance = thisDirections[0]["legs"][-1]["distance"]["text"]
-        floatDistance = float(distance.split(" ")[0])
-        interimDistance = floatDistance - lastAccDistance
-        lastAccDistance = floatDistance
-        addressStrByComma = fullAddressStr.split(",")
+        thisTime = x
+        # thisDirections = incrementDirections[x]
+        # if x == 0:
+        #     fullAddressStr = thisDirections[0]["legs"][-1]["start_address"]
+        #     distance = "0.0 mi"
+        # else:
+        #     fullAddressStr = thisDirections[0]["legs"][-1]["end_address"]
+        #     distance = thisDirections[0]["legs"][-1]["distance"]["text"]
+        # floatDistance = float(distance.split(" ")[0])
+        # interimDistance = floatDistance - lastAccDistance
+        # lastAccDistance = floatDistance
         time = datetime.fromtimestamp(thisForecast.hourly[thisTime].time, pytz.timezone(thisForecast.timezone)).strftime("%-I:%M %p")
         timezone = datetime.fromtimestamp(thisForecast.hourly[thisTime].time, pytz.timezone(thisForecast.timezone)).strftime("%Z")
-        city = addressStrByComma[-3].strip()
-        state = addressStrByComma[-2].strip().split(" ")[0]
+        # addressStrByComma = fullAddressStr.split(",")
+        # city = addressStrByComma[-3].strip()
+        # state = addressStrByComma[-2].strip().split(" ")[0]
         outgoing_dict["hourly"].append({
             "icon": thisForecast.hourly[thisTime].icon,
             "temp": thisForecast.hourly[thisTime].temperature,
             "time": time,
             "timezone": timezone,
-            "city": city,
-            "state": state,
-            "distance": "{} mi".format(interimDistance)
+            # "city": city,
+            "city": "nowhere",
+            # "state": state,
+            "state": "ohio or somewhere",
+            # "distance": "{} mi".format(interimDistance)
+            "distance": "0.0 mi"
         })
     return outgoing_dict
 

@@ -76,11 +76,12 @@ $('form[name="itinerary"]').on({
     var articles = $('main > article');
     var formData = new FormData(this);
     var sendData = {
-      env: 'dev',
+      env: 'prod',
       start_location: formData.get('origin').trim(),
       end_location: formData.get('destination').trim(),
       method: formData.get('method')
     };
+    console.log(sendData)
 
     if(tw.coordinates.latitude && tw.coordinates.longitude) {
       sendData.start_location = Object.values(tw.coordinates).join();
@@ -105,6 +106,8 @@ $('form[name="itinerary"]').on({
         dataType: 'json',
         crossDomain: true,
         success: function(get) {
+          console.log(get)
+            
           var footer = $('main > footer');
           var template = $('body > template').html();
 

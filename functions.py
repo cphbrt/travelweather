@@ -15,7 +15,7 @@ import pytz
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
     headers = {
-        'Access-Control-Allow-Origin': 'travelcast.me,travelcast.test',
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json'
     }
@@ -31,6 +31,14 @@ def handle_request(request):
             outgoing_dict = dev_outgoing_dict()
             return (json.dumps(outgoing_dict), 200, headers)
         elif incoming_dict['env'] == "prod":
+            if ("start_location" not in incoming_dict or
+                incoming_dict["start_location"].strip() == "" or
+                "end_location" not in incoming_dict or
+                incoming_dict["end_location"].strip() == "" or
+                "method" not in incoming_dict or
+                incoming_dict["method"].strip() == ""):
+                ret = {"issue": "improper input"}
+                return (json.dumps(ret), 200, headers)
             outgoing_dict = prod_outgoing_dict(incoming_dict)
             return (json.dumps(outgoing_dict), 200, headers)
         else:
@@ -100,6 +108,8 @@ def prod_outgoing_dict(incoming_dict):
             isLatLong = False
     if not isLatLong:
         start_loc = gmaps.geocode(incoming_dict["start_location"])
+        if isinstance(start_loc, (list,)) and len(start_loc) == 0:
+            return {"issue": "bad start_location"}
     
     ## get lat/long
     if isLatLong:
@@ -116,12 +126,15 @@ def prod_outgoing_dict(incoming_dict):
     else:
         start_location_strAddress = incoming_dict["start_location"]
 
-    directions_response = gmaps.directions(
-        start_location_strAddress,
-        incoming_dict["end_location"], 
-        mode=incoming_dict["method"], 
-        departure_time=datetime.now()
-    )
+    try:
+        directions_response = gmaps.directions(
+            start_location_strAddress,
+            incoming_dict["end_location"],
+            mode=incoming_dict["method"],
+            departure_time=datetime.now()
+        )
+    except googlemaps.exceptions.ApiError:
+        return {"issue": "bad end_location"}
 
     # get all the points along the first route returned
     points = polyline.decode(directions_response[0]["overview_polyline"]["points"])
@@ -132,6 +145,9 @@ def prod_outgoing_dict(incoming_dict):
         numIncrements = len(points)
     else:
         numIncrements = durationHours
+
+    if numIncrements > 23:
+        numIncrements = 23
 
     iterator = int(len(points) / numIncrements)
 
@@ -196,7 +212,7 @@ def prod_outgoing_dict(incoming_dict):
         else:
             fullAddressStr = thisDirections[0]["legs"][-1]["end_address"]
             distance = thisDirections[0]["legs"][-1]["distance"]["text"]
-        floatDistance = float(distance.split(" ")[0])   
+        floatDistance = float(distance.split(" ")[0])
         interimDistance = floatDistance - lastAccDistance
         lastAccDistance = floatDistance
         addressStrByComma = fullAddressStr.split(",")

@@ -278,9 +278,11 @@ article hr {
 }
 
 article dl {
+  position: relative;
   width: 100%;
   margin: 0px;
   overflow: hidden;
+  z-index: 1;
 }
 
 article dl > dt,

@@ -18,18 +18,25 @@ def handle_request(request):
         'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json'
     }
+    if request.method != 'POST':
+        ret = {"issue": "not POST"}
+        return (json.dumps(ret), 200, headers)
+    if not request.is_json:
+        ret = {"issue": "not JSON"}
+        return (json.dumps(ret), 200, headers)
     incoming_dict = request.get_json()
-    if "env" not in incoming_dict:
-        outgoing_dict = {"env": "undeclared"}
-        return (json.dumps(outgoing_dict), 200, headers)
-    elif incoming_dict['env'] == "dev":
-        outgoing_dict = dev_outgoing_dict()
-        return (json.dumps(outgoing_dict), 200, headers)
-    elif incoming_dict['env'] == "prod":
-        outgoing_dict = prod_outgoing_dict(incoming_dict)
-        return (json.dumps(outgoing_dict), 200, headers)
+    if "env" in incoming_dict:
+        if incoming_dict['env'] == "dev":
+            outgoing_dict = dev_outgoing_dict()
+            return (json.dumps(outgoing_dict), 200, headers)
+        elif incoming_dict['env'] == "prod":
+            outgoing_dict = prod_outgoing_dict(incoming_dict)
+            return (json.dumps(outgoing_dict), 200, headers)
+        else:
+            outgoing_dict = {"env": "misdeclared"}
+            return (json.dumps(outgoing_dict), 200, headers)
     else:
-        outgoing_dict = {"env": "misdeclared"}
+        outgoing_dict = {"env": "undeclared"}
         return (json.dumps(outgoing_dict), 200, headers)
 
 # This is the example response that we send back to index.html in dev mode.

@@ -1,7 +1,7 @@
 var tw = (function() {
   'use strict';
 
-  var env = 'dev';
+  var env = 'prod';
   var date = new Date();
   var hour = date.getHours();
 

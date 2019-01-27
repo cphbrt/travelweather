@@ -48,44 +48,49 @@ def dev_outgoing_dict():
     outgoing_dict = {
         "hourly": [
             {
-                "icon": "clear-night",
-                "temp": 37.71,
-                "time": "4:09 PM",
-                "timezone": "America\/Chicago",
                 "city": "Murfreesboro",
-                "state": "TN"
+                "temp": 37.11,
+                "distance": "0.0 mi",
+                "state": "TN",
+                "time": "2:00 AM",
+                "timezone": "CST",
+                "icon": "clear-night"
             },
             {
-                "icon": "clear-night",
-                "temp": 36.65,
-                "time": "4:09 PM",
-                "timezone": "America\/Chicago",
-                "city": "Thompson's Station",
-                "state": "TN"
+                "city": "Jasper",
+                "temp": 31.82,
+                "distance": "80.4 mi",
+                "state": "TN",
+                "time": "3:00 AM",
+                "timezone": "CST",
+                "icon": "clear-night"
             },
             {
-                "icon": "clear-night",
-                "temp": 39.54,
-                "time": "4:09 PM",
-                "timezone": "America\/Chicago",
-                "city": "McEwen",
-                "state": "TN"
+                "city": "Calhoun",
+                "temp": 31.25,
+                "distance": "68.6 mi",
+                "state": "GA",
+                "time": "5:00 AM",
+                "timezone": "EST",
+                "icon": "partly-cloudy-night"
             },
             {
-                "icon": "clear-night",
-                "temp": 38.1,
-                "time": "4:09 PM",
-                "timezone": "America\/Chicago",
-                "city": "Jackson",
-                "state": "TN"
+                "city": "Atlanta",
+                "temp": 34.15,
+                "distance": "68.0 mi",
+                "state": "GA",
+                "time": "6:00 AM",
+                "timezone": "EST",
+                "icon": "partly-cloudy-night"
             },
             {
-                "icon": "clear-night",
-                "temp": 39.43,
-                "time": "4:09 PM",
-                "timezone": "America\/Chicago",
-                "city": "Memphis",
-                "state": "TN"
+                "city": "Atlanta",
+                "temp": 34.16,
+                "distance": "1.0 mi",
+                "state": "GA",
+                "time": "6:00 AM",
+                "timezone": "EST",
+                "icon": "partly-cloudy-night"
             }
         ]
     }

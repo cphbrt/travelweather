@@ -15,8 +15,8 @@ import pytz
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
     headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': 'https://travelcast.me,https://travelcast.test',
+        'Access-Control-Allow-Headers': 'Content-Type',
         'Content-Type': 'application/json'
     }
     if request.method != 'POST':

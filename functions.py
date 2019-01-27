@@ -10,6 +10,7 @@ import darksky
 from datetime import date, timedelta, datetime
 import os
 import polyline
+import pytz
 
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
@@ -199,13 +200,15 @@ def prod_outgoing_dict(incoming_dict):
         interimDistance = floatDistance - lastAccDistance
         lastAccDistance = floatDistance
         addressStrByComma = fullAddressStr.split(",")
-        state = addressStrByComma[-2].strip().split(" ")[0]
+        time = datetime.fromtimestamp(thisForecast.hourly[thisTime].time, pytz.timezone(thisForecast.timezone)).strftime("%-I:%M %p")
+        timezone = datetime.fromtimestamp(thisForecast.hourly[thisTime].time, pytz.timezone(thisForecast.timezone)).strftime("%Z")
         city = addressStrByComma[-3].strip()
+        state = addressStrByComma[-2].strip().split(" ")[0]
         outgoing_dict["hourly"].append({
             "icon": thisForecast.hourly[thisTime].icon,
             "temp": thisForecast.hourly[thisTime].temperature,
-            "time": datetime.fromtimestamp(thisForecast.hourly[thisTime].time).strftime("%-I:%M %p"),
-            "timezone": thisForecast.timezone,
+            "time": time,
+            "timezone": timezone,
             "city": city,
             "state": state,
             "distance": "{} mi".format(interimDistance)
@@ -227,7 +230,7 @@ def test_prod_outgoing_dict():
     fake_incoming_dict = {
         "env": "prod",
         "start_location": "35.8465948,-86.36529569999999",
-        "end_location": "Memphis, TN",
+        "end_location": "Atlanta, GA",
         "method": "driving"
     }
     # fake_incoming_dict = {

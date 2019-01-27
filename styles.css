@@ -38,6 +38,7 @@ main {
 
 main.loading {
   pointer-events: none !important;
+  cursor: not-allowed !important;
 }
 
 main.loading [id='logo'] > svg {

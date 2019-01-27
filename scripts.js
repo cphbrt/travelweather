@@ -85,14 +85,14 @@ $(function() {
 $('button[name="coordinates"]').on({
   'click': function() {
     if(navigator.geolocation) {
-      var input = $('input[name="origin"]');
+      var button = $(this);
 
-      tw.loading('on', input);
+      tw.loading('on', button);
 
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.val('Your Location');
+        $('input[name="origin"]').val('Your Location');
 
-        tw.loading('off', input);
+        tw.loading('off', button);
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
@@ -105,7 +105,7 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
-    var submit = $('button[name="route"]');
+    var button = $('button[name="route"]');
     var articles = $('main > article');
     var formData = new FormData(this);
     var sendData = {
@@ -130,7 +130,7 @@ $('form[name="itinerary"]').on({
         articles.remove();
       }
 
-      tw.loading('on', submit);
+      tw.loading('on', button);
 
       $.ajax({
         type: 'POST',
@@ -168,7 +168,7 @@ $('form[name="itinerary"]').on({
                     label.prev().prependTo(label.parent());
                   }
 
-                  item.html(Math.round(hour.temp));
+                  item.text(Math.round(hour.temp));
                 break;
 
                 case 'location':
@@ -196,9 +196,9 @@ $('form[name="itinerary"]').on({
           tw.maptime();
           tw.scrolly();
 
-          submit.text('Reroute');
+          button.text('Reroute');
 
-          tw.loading('off', submit);
+          tw.loading('off', button);
         }
       });
     }

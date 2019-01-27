@@ -1,0 +1,14 @@
+{
+  "name": "Travelcast",
+  "icons": [
+    {
+      "src": "/images/appicon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#2999F9",
+  "display": "standalone",
+  "theme_color": "#2999F9"
+}

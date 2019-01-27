@@ -321,7 +321,7 @@ form div.methods > input {
 form div.methods > input ~ label {
   padding: 8px;
   background-color: #EFEFEF;
-  fill: #838383;
+  fill: #565656;
   cursor: pointer;
 }
 

@@ -105,11 +105,11 @@ $('form[name="itinerary"]').on({
 
             switch(fill) {
               case 'time':
-                item.html(tw.date.toLocaleTimeString('en-US'));
+                item.text(hour.time);
               break;
 
               case 'timezone':
-                // $(item).html(hour.temp);
+                item.text(hour.timezone);
               break;
 
               case 'temperature':
@@ -119,11 +119,11 @@ $('form[name="itinerary"]').on({
                   label.prev().prependTo(label.parent());
                 }
 
-                item.html(hour.temp);
+                item.html(Math.round(hour.temp));
               break;
 
               case 'location':
-                // $(item).html(hour.temp);
+                item.text([hour.city, hour.state].join(', '));
               break;
             }
           });

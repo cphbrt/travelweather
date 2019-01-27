@@ -149,11 +149,13 @@ header > figure [id='logo'] {
 header > figure [id='logo'] > svg {
   height: 70px;
   fill: #2999F9;
+  animation: rotation 1.80s infinite linear;
+  animation-play-state: paused;
+  transform-origin: center center;
 }
 
 header > figure [id='logo'].loading > svg {
-  animation: rotation 1.80s infinite linear;
-  transform-origin: center center;
+  animation-play-state: running;
 }
 
 @keyframes rotation {

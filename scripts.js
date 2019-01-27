@@ -75,8 +75,8 @@ $('form[name="itinerary"]').on({
     var formData = new FormData(this);
     var sendData = {
       env: 'dev',
-      start_location: formData.get('origin'),
-      end_location: formData.get('destination'),
+      start_location: formData.get('origin').trim(),
+      end_location: formData.get('destination').trim(),
       method: formData.get('method')
     };
 
@@ -88,69 +88,72 @@ $('form[name="itinerary"]').on({
       articles.remove();
     }
 
-    submit.prop('disabled', true);
+    if(!sendData.start_location.length || !sendData.end_location.length) {
+      alert('Please fill out all input fields to continue.');
+    } else {
+      submit.prop('disabled', true);
 
-    tw.logo.addClass('loading');
+      tw.logo.addClass('loading');
 
-    $.ajax({
-      type: 'POST',
-      url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
-      data: JSON.stringify(sendData),
-      contentType: "application/json; charset=utf-8",
-      dataType: 'json',
-      crossDomain: true,
-      success: function(get) {
-        console.log(get)
-        var footer = $('main > footer');
-        var template = $('body > template').html();
+      $.ajax({
+        type: 'POST',
+        url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
+        data: JSON.stringify(sendData),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        crossDomain: true,
+        success: function(get) {
+          var footer = $('main > footer');
+          var template = $('body > template').html();
 
-        $.each(get.hourly, function(index, hour) {
-          var cloned = $(template);
+          $.each(get.hourly, function(index, hour) {
+            var cloned = $(template);
 
-          cloned.find('[data-fill]').each(function(index, item) {
-            var item = $(item);
-            var fill = item.data('fill');
+            cloned.find('[data-fill]').each(function(index, item) {
+              var item = $(item);
+              var fill = item.data('fill');
 
-            switch(fill) {
-              case 'time':
-                item.text(hour.time);
-              break;
+              switch(fill) {
+                case 'time':
+                  item.text(hour.time);
+                break;
 
-              case 'timezone':
-                item.text(hour.timezone);
-              break;
+                case 'timezone':
+                  item.text(hour.timezone);
+                break;
 
-              case 'temperature':
-                if(hour.temp > 50) {
-                  var label = item.prev('dt').find('label');
+                case 'temperature':
+                  if(hour.temp > 50) {
+                    var label = item.prev('dt').find('label');
 
-                  label.prev().prependTo(label.parent());
-                }
+                    label.prev().prependTo(label.parent());
+                  }
 
-                item.html(Math.round(hour.temp));
-              break;
+                  item.html(Math.round(hour.temp));
+                break;
 
-              case 'location':
-                item.text([hour.city, hour.state].join(', '));
-              break;
-            }
+                case 'location':
+                  item.text([hour.city, hour.state].join(', '));
+                break;
+              }
+            });
+
+            cloned.insertBefore(footer);
           });
 
-          cloned.insertBefore(footer);
-        });
+          tw.mapicon();
+          tw.maptime();
 
-        tw.mapicon();
-        tw.maptime();
+          submit.text('Reroute').prop('disabled', false);
 
-        submit.text('Reroute').prop('disabled', false);
+          tw.logo.removeClass('loading');
 
-        tw.logo.removeClass('loading');
-
-        $('html, body').animate({
-          'scrollTop': $('main > article:first-of-type').offset().top,
-        }, 900, 'swing');
-      }
-    });
+          $('html, body').animate({
+            'scrollTop': $('main > article:first-of-type').offset().top,
+          }, 900, 'swing');
+        }
+      });
+    }
 
     event.preventDefault();
   }

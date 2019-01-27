@@ -7,6 +7,16 @@ var tw = (function() {
   return {
     date: date,
 
+    mapicon: function(name) {
+      $('img[data-icon]').each(function() {
+        var name = $(this).data('icon');
+
+        $.get('images/' + name + '.svg', function(svg) {
+          $('img[data-icon="' + name + '"]').replaceWith(svg);
+        }, 'html');
+      });
+    },
+
     maptime: function() {
       var number = hour;
 
@@ -25,6 +35,7 @@ var tw = (function() {
 }());
 
 $(function() {
+  tw.mapicon()
   tw.maptime();
 });
 
@@ -115,6 +126,7 @@ $('form[name="itinerary"]').on({
           cloned.insertBefore(footer);
         });
 
+        tw.mapicon()
         tw.maptime();
 
         submit.text('Reroute').prop('disabled', false);

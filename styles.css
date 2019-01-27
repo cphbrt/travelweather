@@ -192,7 +192,7 @@ article hr {
   height: 2px;
   width: 60%;
   margin: 10px 0px;
-  background-color: #EFEFEF;
+  background-color: #F6F6F6;
   border-width: 0px;
   border-radius: 1px;
 }
@@ -230,6 +230,10 @@ article dl > dt > svg:not(:first-child) {
 article dl > dd {
   width: 60%;
   font-weight: 500;
+}
+
+article dl > dd[data-fill='temperature']:after {
+  content: '\00b0';
 }
 
 footer > section {
@@ -309,14 +313,14 @@ form div.methods > input ~ label {
   cursor: pointer;
 }
 
-form div.methods > input ~ label[for='cycle'] svg {
+form div.methods > input ~ label[for='bicycling'] svg {
   height: 24px;
   margin: -2px 0px;
 }
 
-form div.methods > input[id='walk']:checked ~ label[for='walk'],
-form div.methods > input[id='cycle']:checked ~ label[for='cycle'],
-form div.methods > input[id='drive']:checked ~ label[for='drive'] {
+form div.methods > input[id='walking']:checked ~ label[for='walking'],
+form div.methods > input[id='bicycling']:checked ~ label[for='bicycling'],
+form div.methods > input[id='driving']:checked ~ label[for='driving'] {
   fill: #FFFFFF;
   background-color: #9A11E9;
 }

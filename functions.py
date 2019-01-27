@@ -10,6 +10,7 @@ import darksky
 from datetime import date, timedelta, datetime
 import os
 import polyline
+import datetime
 
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
@@ -189,7 +190,7 @@ def prod_outgoing_dict(incoming_dict):
         outgoing_dict["hourly"].append({
             "icon": thisForecast.hourly[thisTime].icon,
             "temp": thisForecast.hourly[thisTime].temperature,
-            "time": thisForecast.hourly[thisTime].time, ## NOTE: needs to be converted
+            "time": datetime.datetime.fromtimestamp(thisForecast.hourly[thisTime].time/1000)strftime("%-I:%M %p"),
             "timezone": thisForecast.timezone,
             "city": city,
             "state": state

@@ -81,11 +81,12 @@ $('form[name="itinerary"]').on({
           var cloned = $(template);
 
           cloned.find('[data-fill]').each(function(index, item) {
-            var fill = $(item).data('fill');
+            var item = $(item);
+            var fill = item.data('fill');
 
             switch(fill) {
               case 'time':
-                $(item).html(tw.date.toLocaleTimeString('en-US'));
+                item.html(tw.date.toLocaleTimeString('en-US'));
               break;
 
               case 'timezone':
@@ -93,7 +94,13 @@ $('form[name="itinerary"]').on({
               break;
 
               case 'temperature':
-                $(item).html(hour.temp);
+                if(hour.temp > 50) {
+                  var label = item.prev('dt').find('label');
+
+                  label.prev().prependTo(label.parent());
+                }
+
+                item.html(hour.temp);
               break;
 
               case 'location':

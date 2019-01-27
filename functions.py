@@ -198,7 +198,7 @@ def prod_outgoing_dict(incoming_dict):
         outgoing_dict["hourly"].append({
             "icon": thisForecast.hourly[thisTime].icon,
             "temp": thisForecast.hourly[thisTime].temperature,
-            "time": datetime.fromtimestamp(thisForecast.hourly[thisTime].time/1000).strftime("%-I:%M %p"),
+            "time": datetime.fromtimestamp(thisForecast.hourly[thisTime].time).strftime("%-I:%M %p"),
             "timezone": thisForecast.timezone,
             "city": city,
             "state": state

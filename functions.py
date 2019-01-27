@@ -177,14 +177,22 @@ def prod_outgoing_dict(incoming_dict):
     outgoing_dict = {
         "hourly": []
     }
-    
+    lastAccDistance = 0.0
+
     for x in range(0, len(incrementLatLongs)):
         thisForecast = incrementForecasts[x]
         thisTime = incrementArrivalTime[x]
+        thisDirections = incrementDirections[x]
         if x == 0:
-            fullAddressStr = incrementDirections[x][0]["legs"][-1]["start_address"]
+            fullAddressStr = thisDirections[0]["legs"][-1]["start_address"]
+            distance = "0.0 mi"
         else:
-            fullAddressStr = incrementDirections[x][0]["legs"][-1]["end_address"]
+            fullAddressStr = thisDirections[0]["legs"][-1]["end_address"]
+            distance = thisDirections[0]["legs"][-1]["distance"]["text"]
+
+        floatDistance = float(distance.split(" ")[0])   
+        interimDistance = floatDistance - lastAccDistance
+        lastAccDistance = floatDistance
         addressStrByComma = fullAddressStr.split(",")
         state = addressStrByComma[-2].strip().split(" ")[0]
         city = addressStrByComma[-3].strip()
@@ -194,7 +202,9 @@ def prod_outgoing_dict(incoming_dict):
             "time": datetime.fromtimestamp(thisForecast.hourly[thisTime].time/1000).strftime("%-I:%M %p"),
             "timezone": thisForecast.timezone,
             "city": city,
-            "state": state
+            "state": state,
+            "distance": "{} mi".format(interimDistance)
+
         })
 
     return outgoing_dict

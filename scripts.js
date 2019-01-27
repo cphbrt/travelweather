@@ -22,6 +22,8 @@ var tw = (function() {
     maptime: function() {
       var number = hour;
 
+      $('body').attr('data-time', number);
+
       $('main > *').each(function() {
         var element = $(this);
 
@@ -99,7 +101,7 @@ $('form[name="itinerary"]').on({
         type: 'POST',
         url: 'https://us-central1-travelweather-1548474103293.cloudfunctions.net/travelweather-1',
         data: JSON.stringify(sendData),
-        contentType: "application/json; charset=utf-8",
+        contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         crossDomain: true,
         success: function(get) {

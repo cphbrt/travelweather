@@ -46,65 +46,89 @@ main > footer {
   flex-grow: 1;
 }
 
+body[data-time='24'],
 main > [data-time='24'] {
   background-color: #383663;
 }
 
+body[data-time='1'],
+body[data-time='23'],
 main > [data-time='1'],
 main > [data-time='23'] {
   background-color: #33406F;
 }
 
+body[data-time='2'],
+body[data-time='22'],
 main > [data-time='2'],
 main > [data-time='22'] {
   background-color: #2F4A7A;
 }
 
+body[data-time='3'],
+body[data-time='21'],
 main > [data-time='3'],
 main > [data-time='21'] {
   background-color: #2A5486;
 }
 
+body[data-time='4'],
+body[data-time='20'],
 main > [data-time='4'],
 main > [data-time='20'] {
   background-color: #255E91;
 }
 
+body[data-time='5'],
+body[data-time='19'],
 main > [data-time='5'],
 main > [data-time='19'] {
   background-color: #21689D;
 }
 
+body[data-time='6'],
+body[data-time='18'],
 main > [data-time='6'],
 main > [data-time='18'] {
   background-color: #1C72A8;
 }
 
+body[data-time='7'],
+body[data-time='17'],
 main > [data-time='7'],
 main > [data-time='17'] {
   background-color: #177CB4;
 }
 
+body[data-time='8'],
+body[data-time='16'],
 main > [data-time='8'],
 main > [data-time='16'] {
   background-color: #1386C0;
 }
 
+body[data-time='9'],
+body[data-time='15'],
 main > [data-time='9'],
 main > [data-time='15'] {
   background-color: #0E90CB;
 }
 
+body[data-time='10'],
+body[data-time='14'],
 main > [data-time='10'],
 main > [data-time='14'] {
   background-color: #099AD7;
 }
 
+body[data-time='11'],
+body[data-time='13'],
 main > [data-time='11'],
 main > [data-time='13'] {
   background-color: #05A4E2;
 }
 
+body[data-time='12'],
 main > [data-time='12'] {
   background-color: #00AEEE;
 }

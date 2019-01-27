@@ -37,6 +37,28 @@ var tw = (function() {
       });
     },
 
+    loading: function(method) {
+      switch(method) {
+        case 'on':
+          tw.logo.addClass('loading');
+
+          $('html').on({
+            'disable.click': function(event) {
+              event.preventDefault();
+              console.log('OFF');
+            }
+          });
+        break;
+
+        case 'off':
+          tw.logo.removeClass('loading');
+
+          $('html').off('disable.click');
+          console.log('ON');
+        break;
+      }
+    },
+
     scrolly: function() {
       var element = $('main > header');
 
@@ -71,12 +93,12 @@ $('button[name="coordinates"]').on({
 
       input.prop('disabled', true);
 
-      tw.logo.addClass('loading');
+      tw.loading('on');
 
       navigator.geolocation.getCurrentPosition(function(position) {
         input.prop('disabled', false).val('Your Location');
 
-        tw.logo.removeClass('loading');
+        tw.loading('off');
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
@@ -100,12 +122,14 @@ $('form[name="itinerary"]').on({
     };
 
     if(tw.coordinates.latitude && tw.coordinates.longitude) {
-      sendData.start_location = Object.values(tw.coordinates).join();
+      if(sendData.start_location == 'Your Location') {
+        sendData.start_location = Object.values(tw.coordinates).join();
+      }
     }
 
     if(!sendData.start_location.length || !sendData.end_location.length) {
       alert('Please fill out all input fields to continue.');
-    } else if(JSON.stringify(tw.collection) === JSON.stringify(sendData)) {
+    } else if(JSON.stringify(tw.collection) == JSON.stringify(sendData)) {
       tw.scrolly();
     } else {
       if(articles.length) {
@@ -114,7 +138,7 @@ $('form[name="itinerary"]').on({
 
       submit.prop('disabled', true);
 
-      tw.logo.addClass('loading');
+      tw.loading('on');
 
       $.ajax({
         type: 'POST',
@@ -182,7 +206,7 @@ $('form[name="itinerary"]').on({
 
           submit.text('Reroute').prop('disabled', false);
 
-          tw.logo.removeClass('loading');
+          tw.loading('off');
         }
       });
     }

@@ -13,7 +13,7 @@ var tw = (function() {
 
         $.get('images/' + name + '.svg', function(svg) {
           $('img[data-icon="' + name + '"]').replaceWith(svg);
-        }, 'html');
+        }, 'text');
       });
     },
 

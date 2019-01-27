@@ -381,15 +381,27 @@ form div.methods > input {
 }
 
 form div.methods > input ~ label {
+  width: 30px;
   padding: 8px;
   background-color: #EFEFEF;
   fill: #565656;
   cursor: pointer;
 }
 
+form div.methods > input ~ label > svg {
+  margin: 0px auto;
+}
+
 form div.methods > input ~ label[for='bicycling'] svg {
   height: 24px;
-  margin: -2px 0px;
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+
+form div.methods > input ~ label[for='driving'] svg {
+  height: 22px;
+  margin-top: -1px;
+  margin-bottom: -1px;
 }
 
 form div.methods > input[id='walking']:checked ~ label[for='walking'],
@@ -421,6 +433,7 @@ footer > section {
 footer > p {
   max-width: 360px;
   margin: 20px auto 0px;
+  padding: 0px 10px;
   color: rgba(225, 225, 225, 0.60);
   text-align: center;
   line-height: 20px;

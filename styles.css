@@ -311,6 +311,12 @@ footer > p {
   box-sizing: border-box;
   opacity: 0.60;
 }
+footer > p > a {
+  color: #FFFFFF;
+}
+footer > p > a:hover {
+  color: #DDDDDD;
+}
 
 form fieldset:not(:first-child) {
   margin-top: 20px;

@@ -119,12 +119,19 @@ main > [data-time='12'] {
   box-sizing: border-box;
 }
 
-header > figure {
-  width: 100px;
-  height: 100px;
-  margin: 0px auto 40px;
-  background-color: #EEC200;
-  border-radius: 100%;
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%; 
+  height: 15%;
+  padding-bottom: 20px; 
+  
+}
+
+@media screen (max-width:767px) {
+  #logo{width: 35%; 
+    height: 35%;}
 }
 
 header > section {
@@ -137,7 +144,6 @@ header + footer {
 }
 
 article > section {
-  height: 150px;
   padding: 15px 20px 15px 67px;
 }
 
@@ -186,9 +192,48 @@ article hr {
   height: 2px;
   width: 60%;
   margin: 10px 0px;
-  background-color: #EFEFEF;
+  background-color: #F6F6F6;
   border-width: 0px;
   border-radius: 1px;
+}
+
+article dl {
+  width: 100%;
+  margin: 0px;
+  overflow: hidden;
+}
+
+article dl > dt,
+article dl > dd {
+  margin: 0px;
+  line-height: 24px;
+  float: left;
+}
+
+article dl > dt {
+  width: 40%;
+  color: #C5C5C5;
+  clear: both;
+}
+
+article dl > dt > svg {
+  height: 12px;
+  margin: 6px 7px 6px 0px;
+  fill: #C5C5C5;
+  float: left;
+}
+
+article dl > dt > svg:not(:first-child) {
+  display: none !important;
+}
+
+article dl > dd {
+  width: 60%;
+  font-weight: 500;
+}
+
+article dl > dd[data-fill='temperature']:after {
+  content: '\00b0';
 }
 
 footer > section {
@@ -268,14 +313,14 @@ form div.methods > input ~ label {
   cursor: pointer;
 }
 
-form div.methods > input ~ label[for='cycle'] svg {
+form div.methods > input ~ label[for='bicycling'] svg {
   height: 24px;
   margin: -2px 0px;
 }
 
-form div.methods > input[id='walk']:checked ~ label[for='walk'],
-form div.methods > input[id='cycle']:checked ~ label[for='cycle'],
-form div.methods > input[id='drive']:checked ~ label[for='drive'] {
+form div.methods > input[id='walking']:checked ~ label[for='walking'],
+form div.methods > input[id='bicycling']:checked ~ label[for='bicycling'],
+form div.methods > input[id='driving']:checked ~ label[for='driving'] {
   fill: #FFFFFF;
   background-color: #9A11E9;
 }

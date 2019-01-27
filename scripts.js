@@ -38,8 +38,10 @@ var tw = (function() {
     },
 
     scrolly: function() {
+      var element = $('main > header');
+
       $('html, body').animate({
-        'scrollTop': $('main > article:first-of-type').offset().top,
+        'scrollTop': element.offset().top + element.outerHeight(),
       }, 900, 'swing');
     },
 
@@ -158,6 +160,10 @@ $('form[name="itinerary"]').on({
                     hour.city,
                     hour.state
                   ].join(', '));
+                break;
+
+                case 'distance':
+                  item.text(hour.distance);
                 break;
               }
             });

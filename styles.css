@@ -313,7 +313,7 @@ article dl > dd[data-fill='temperature']:after {
 
 article dl + svg {
   position: absolute;
-  top: 15px;
+  top: 20px;
   right: 30px;
   height: 70px;
   fill: #EFEFEF;

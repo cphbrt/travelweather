@@ -42,15 +42,13 @@ var tw = (function() {
     loading: function(method, button) {
       switch(method) {
         case 'on':
-          tw.logo.addClass('loading');
-          tw.main.addClass('disable');
+          tw.logo.add(tw.main).addClass('loading');
 
           button.prop('disabled', true);
         break;
 
         case 'off':
-          tw.logo.removeClass('loading');
-          tw.main.removeClass('disable');
+          tw.logo.add(tw.main).removeClass('loading');
 
           button.prop('disabled', false);
         break;

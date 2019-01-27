@@ -36,8 +36,12 @@ main {
   flex-direction: column;
 }
 
-main.disable {
+main.loading {
   pointer-events: none !important;
+}
+
+main.loading [id='logo'] > svg {
+  animation-play-state: running;
 }
 
 main > * {
@@ -187,10 +191,6 @@ header > figure [id='logo'] > svg {
   animation: rotation 1.80s infinite linear;
   animation-play-state: paused;
   transform-origin: center center;
-}
-
-header > figure [id='logo'].loading > svg {
-  animation-play-state: running;
 }
 
 @keyframes rotation {

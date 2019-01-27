@@ -316,29 +316,7 @@ article dl + svg {
   top: 15px;
   right: 30px;
   height: 70px;
-  /* fill: #9A1-1E9; */
   fill: #EFEFEF;
-}
-
-footer > section {
-  padding-top: 0px;
-  border-radius: 0px 0px 6px 6px;
-}
-
-footer > p {
-  max-width: 360px;
-  margin: 20px auto 0px;
-  color: rgba(225, 225, 225, 0.60);
-  text-align: center;
-  line-height: 20px;
-  box-sizing: border-box;
-}
-
-footer > p > a {
-  color: rgba(225, 225, 225, 0.80);
-  text-decoration: none;
-  border-bottom: 1px dotted;
-  border-color: rgba(225, 225, 225, 0.40);
 }
 
 form fieldset:not(:first-child) {
@@ -433,4 +411,34 @@ form button[name='coordinates'] svg {
 form button[name='route'] {
   margin-left: auto !important;
   background-color: #FD7E34;
+}
+
+footer > section {
+  padding-top: 0px;
+  border-radius: 0px 0px 6px 6px;
+}
+
+footer > p {
+  max-width: 360px;
+  margin: 20px auto 0px;
+  color: rgba(225, 225, 225, 0.60);
+  text-align: center;
+  line-height: 20px;
+  box-sizing: border-box;
+}
+
+footer > p > a {
+  color: rgba(225, 225, 225, 0.80);
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  border-color: rgba(225, 225, 225, 0.40);
+}
+
+footer > p > svg {
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  height: 14px;
+  margin: 0px 1px;
+  fill: #FFFFFF;
 }

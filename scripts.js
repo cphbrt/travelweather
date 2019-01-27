@@ -7,6 +7,8 @@ var tw = (function() {
   return {
     date: date,
 
+    logo: $('div[id="logo"]'),
+
     mapicon: function(name) {
       $('img[data-icon]').each(function() {
         var name = $(this).data('icon');
@@ -23,7 +25,7 @@ var tw = (function() {
       $('main > *').each(function() {
         var element = $(this);
 
-        if(number == 25) {
+        if(number == 25 || number == 0) {
           number = 1;
         }
 
@@ -39,7 +41,7 @@ var tw = (function() {
 }());
 
 $(function() {
-  tw.mapicon()
+  tw.mapicon();
   tw.maptime();
 });
 
@@ -50,8 +52,12 @@ $('button[name="coordinates"]').on({
 
       input.prop('disabled', true);
 
+      tw.logo.addClass('loading');
+
       navigator.geolocation.getCurrentPosition(function(position) {
         input.prop('disabled', false).val('Your Location');
+
+        tw.logo.removeClass('loading');
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
@@ -83,6 +89,8 @@ $('form[name="itinerary"]').on({
     }
 
     submit.prop('disabled', true);
+
+    tw.logo.addClass('loading');
 
     $.ajax({
       type: 'POST',
@@ -131,10 +139,12 @@ $('form[name="itinerary"]').on({
           cloned.insertBefore(footer);
         });
 
-        tw.mapicon()
+        tw.mapicon();
         tw.maptime();
 
         submit.text('Reroute').prop('disabled', false);
+
+        tw.logo.removeClass('loading');
 
         $('html, body').animate({
           'scrollTop': $('main > article:first-of-type').offset().top,

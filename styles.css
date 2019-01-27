@@ -119,19 +119,47 @@ main > [data-time='12'] {
   box-sizing: border-box;
 }
 
+section div.split {
+  display: flex;
+  align-items: flex-start;
+}
+
+section div.split > *:not(:first-child) {
+  margin-left: 10px;
+}
+
+section div.split > *:not(button) {
+  flex-basis: 100%;
+}
+
 header > figure {
   width: 200px;
   margin: 0px auto 40px;
   text-align: center;
 }
 
-header > figure > svg {
-  height: 74px;
+header > figure [id='logo'] {
+  width: 70px;
   margin: 0px auto;
   padding: 10px;
-  fill: #2999F9;
   background-color: #FFFFFF;
   border-radius: 18px;
+}
+
+header > figure [id='logo'] > svg {
+  height: 70px;
+  fill: #2999F9;
+}
+
+header > figure [id='logo'].loading > svg {
+  animation: rotation 1.80s infinite linear;
+  transform-origin: center center;
+}
+
+@keyframes rotation {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 header > figure > figcaption {
@@ -321,7 +349,7 @@ form div.methods > input {
 form div.methods > input ~ label {
   padding: 8px;
   background-color: #EFEFEF;
-  fill: #838383;
+  fill: #565656;
   cursor: pointer;
 }
 
@@ -349,17 +377,4 @@ form button[name='coordinates'] svg {
 form button[name='route'] {
   margin-left: auto !important;
   background-color: #EE0057;
-}
-
-div.split {
-  display: flex;
-  align-items: flex-start;
-}
-
-div.split > *:not(:first-child) {
-  margin-left: 10px;
-}
-
-div.split > *:not(button) {
-  flex-basis: 100%;
 }

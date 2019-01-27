@@ -15,7 +15,7 @@ import pytz
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
     headers = {
-        'Access-Control-Allow-Origin': 'https://travelcast.me,https://travelcast.test',
+        'Access-Control-Allow-Origin': 'https://travelcast.me',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Content-Type': 'application/json'
     }
@@ -146,8 +146,8 @@ def prod_outgoing_dict(incoming_dict):
     else:
         numIncrements = durationHours
 
-    if numIncrements > 23:
-        numIncrements = 23
+    if numIncrements > 6:
+        numIncrements = 6
 
     iterator = int(len(points) / numIncrements)
 

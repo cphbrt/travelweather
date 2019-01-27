@@ -1,6 +1,7 @@
 var tw = (function() {
   'use strict';
 
+  var env = 'dev';
   var date = new Date();
   var hour = date.getHours();
 
@@ -34,6 +35,19 @@ var tw = (function() {
 
         element.attr('data-time', number++);
       });
+    },
+
+    scrolly: function() {
+      $('html, body').animate({
+        'scrollTop': $('main > article:first-of-type').offset().top,
+      }, 900, 'swing');
+    },
+
+    collection: {
+      env: env,
+      origin: null,
+      destination: null,
+      method: null
     },
 
     coordinates: {
@@ -77,7 +91,7 @@ $('form[name="itinerary"]').on({
     var articles = $('main > article');
     var formData = new FormData(this);
     var sendData = {
-      env: 'dev',
+      env: tw.collection.env,
       start_location: formData.get('origin').trim(),
       end_location: formData.get('destination').trim(),
       method: formData.get('method')
@@ -87,13 +101,15 @@ $('form[name="itinerary"]').on({
       sendData.start_location = Object.values(tw.coordinates).join();
     }
 
-    if(articles.length) {
-      articles.remove();
-    }
-
     if(!sendData.start_location.length || !sendData.end_location.length) {
       alert('Please fill out all input fields to continue.');
+    } else if(JSON.stringify(tw.collection) === JSON.stringify(sendData)) {
+      tw.scrolly();
     } else {
+      if(articles.length) {
+        articles.remove();
+      }
+
       submit.prop('disabled', true);
 
       tw.logo.addClass('loading');
@@ -108,6 +124,8 @@ $('form[name="itinerary"]').on({
         success: function(get) {
           var footer = $('main > footer');
           var template = $('body > template').html();
+
+          tw.collection = sendData;
 
           $.each(get.hourly, function(index, hour) {
             var cloned = $(template);
@@ -154,14 +172,11 @@ $('form[name="itinerary"]').on({
 
           tw.mapicon();
           tw.maptime();
+          tw.scrolly();
 
           submit.text('Reroute').prop('disabled', false);
 
           tw.logo.removeClass('loading');
-
-          $('html, body').animate({
-            'scrollTop': $('main > article:first-of-type').offset().top,
-          }, 900, 'swing');
         }
       });
     }

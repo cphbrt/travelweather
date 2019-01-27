@@ -4,6 +4,7 @@ body {
 }
 
 body {
+  min-width: 360px;
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   color: #565656;
@@ -16,6 +17,12 @@ button {
   padding: 0px;
   outline: 0px;
   border: 0px;
+}
+
+h1,
+h2,
+p {
+  margin: 0px;
 }
 
 svg {
@@ -157,8 +164,8 @@ section div.split > *:not(button) {
 }
 
 header > figure {
-  width: 200px;
-  margin: 0px auto 40px;
+  width: 260px;
+  margin: 0px auto 20px;
   text-align: center;
 }
 
@@ -189,10 +196,18 @@ header > figure [id='logo'].loading > svg {
 }
 
 header > figure > figcaption {
+  color: #FFFFFF;
+}
+
+header > figure h1 {
   margin-top: 15px;
-  font-size: 24px;
-  font-weight: 500;
-  color: #FFF;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+header > figure p {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.60);
 }
 
 header > section {
@@ -243,7 +258,6 @@ article > section:after {
 }
 
 article h2 {
-  margin: 0px;
   font-size: 24px;
   font-weight: 300;
   line-height: 24px;
@@ -312,19 +326,19 @@ footer > section {
 }
 
 footer > p {
-  max-width: 300px;
+  max-width: 360px;
   margin: 20px auto 0px;
-  color: #FFFFFF;
+  color: rgba(225, 225, 225, 0.60);
   text-align: center;
   line-height: 20px;
   box-sizing: border-box;
-  opacity: 0.60;
 }
+
 footer > p > a {
-  color: #FFFFFF;
-}
-footer > p > a:hover {
-  color: #DDDDDD;
+  color: rgba(225, 225, 225, 0.80);
+  text-decoration: none;
+  border-bottom: 1px dotted;
+  border-color: rgba(225, 225, 225, 0.40);
 }
 
 form fieldset:not(:first-child) {
@@ -335,6 +349,7 @@ form input,
 form button {
   padding: 10px 12px;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 form button:disabled {

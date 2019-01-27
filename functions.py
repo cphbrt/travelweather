@@ -15,7 +15,7 @@ import pytz
 # Only Bear can edit this one! Very delicate!
 def handle_request(request):
     headers = {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'travelcast.me',
         'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json'
     }

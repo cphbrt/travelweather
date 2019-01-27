@@ -119,12 +119,19 @@ main > [data-time='12'] {
   box-sizing: border-box;
 }
 
-header > figure {
-  width: 100px;
-  height: 100px;
-  margin: 0px auto 40px;
-  background-color: #EEC200;
-  border-radius: 100%;
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 15%; 
+  height: 15%;
+  padding-bottom: 20px; 
+  
+}
+
+@media screen (max-width:767px) {
+  #logo{width: 35%; 
+    height: 35%;}
 }
 
 header > section {

@@ -46,53 +46,44 @@ def dev_outgoing_dict():
     # This dictionary is an example of what functions.py should be sending to
     # index.html.
     outgoing_dict = {
-        "hourly": [
-            {
-                "city": "Murfreesboro",
-                "temp": 37.11,
-                "distance": "0.0 mi",
-                "state": "TN",
-                "time": "2:00 AM",
-                "timezone": "CST",
-                "icon": "clear-night"
-            },
-            {
-                "city": "Jasper",
-                "temp": 31.82,
-                "distance": "80.4 mi",
-                "state": "TN",
-                "time": "3:00 AM",
-                "timezone": "CST",
-                "icon": "clear-night"
-            },
-            {
-                "city": "Calhoun",
-                "temp": 31.25,
-                "distance": "68.6 mi",
-                "state": "GA",
-                "time": "5:00 AM",
-                "timezone": "EST",
-                "icon": "partly-cloudy-night"
-            },
-            {
-                "city": "Atlanta",
-                "temp": 34.15,
-                "distance": "68.0 mi",
-                "state": "GA",
-                "time": "6:00 AM",
-                "timezone": "EST",
-                "icon": "partly-cloudy-night"
-            },
-            {
-                "city": "Atlanta",
-                "temp": 34.16,
-                "distance": "1.0 mi",
-                "state": "GA",
-                "time": "6:00 AM",
-                "timezone": "EST",
-                "icon": "partly-cloudy-night"
-            }
-        ]
+      "hourly": [
+        {
+          "city": "Murfreesboro",
+          "temp": 36.11,
+          "distance": "0.0 mi",
+          "state": "TN",
+          "time": "3:00 AM",
+          "timezone": "CST",
+          "icon": "clear-night"
+        },
+        {
+          "city": "Jasper",
+          "temp": 30.98,
+          "distance": "80.4 mi",
+          "state": "TN",
+          "time": "4:00 AM",
+          "timezone": "CST",
+          "icon": "clear-night"
+        },
+        {
+          "city": "Calhoun",
+          "temp": 30.29,
+          "distance": "68.6 mi",
+          "state": "GA",
+          "time": "6:00 AM",
+          "timezone": "EST",
+          "icon": "partly-cloudy-night"
+        },
+        {
+          "city": "Atlanta",
+          "temp": 34.3,
+          "distance": "69.0 mi",
+          "state": "GA",
+          "time": "7:00 AM",
+          "timezone": "EST",
+          "icon": "partly-cloudy-night"
+        }
+      ]
     }
     return outgoing_dict
 
@@ -151,7 +142,11 @@ def prod_outgoing_dict(incoming_dict):
     incrementArrivalTime = []
     incrementArrivalTime.append(0)
     finalvalue = 0
+    endedEarly = False
     for x in range(iterator, len(points), iterator):
+        if (x + iterator > len(points)) and (len(points) - x < 2 * int(iterator / 3)):
+            x = len(points) - 1
+            endedEarly = True
         point_lat, point_long = points[x]
         incrementLatLongs.append({"lat": point_lat, "long": point_long})
         point_directions_response = gmaps.directions(
@@ -165,7 +160,7 @@ def prod_outgoing_dict(incoming_dict):
         point_arrival_hour = int(round(point_arrival_sec/60/60))
         incrementArrivalTime.append(point_arrival_hour)
         finalvalue = x
-    if finalvalue != len(points)-1:
+    if finalvalue != len(points)-1 and not endedEarly:
         point_lat, point_long = points[-1]
         incrementLatLongs.append({"lat": point_lat, "long": point_long})
         point_directions_response = gmaps.directions(

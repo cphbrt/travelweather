@@ -11,10 +11,11 @@ var tw = (function() {
 
     mapicon: function(name) {
       $('img[data-icon]').each(function() {
+        var element = $(this);
         var name = $(this).data('icon');
 
         $.get('images/' + name + '.svg', function(svg) {
-          $('img[data-icon="' + name + '"]').replaceWith(svg);
+          element.replaceWith(svg);
         }, 'text');
       });
     },
@@ -135,10 +136,18 @@ $('form[name="itinerary"]').on({
                 break;
 
                 case 'location':
-                  item.text([hour.city, hour.state].join(', '));
+                  item.text([
+                    hour.city,
+                    hour.state
+                  ].join(', '));
                 break;
               }
             });
+
+            cloned.find('[data-fill-icon]').attr('data-icon', [
+              'weather',
+              hour.icon
+            ].join('/'));
 
             cloned.insertBefore(footer);
           });

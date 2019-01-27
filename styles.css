@@ -212,7 +212,7 @@ article > section:before,
 article > section:after {
   content: '';
   position: absolute;
-  background-color: #9A11E9;
+  background-color: #6EBE48;
 }
 
 article > section:before {
@@ -273,6 +273,7 @@ article dl > dd {
 
 article dl > dt {
   width: 40%;
+  min-width: 110px;
   color: #C5C5C5;
   clear: both;
 }
@@ -289,12 +290,20 @@ article dl > dt > svg:not(:first-child) {
 }
 
 article dl > dd {
-  width: 60%;
   font-weight: 500;
 }
 
 article dl > dd[data-fill='temperature']:after {
   content: '\00b0';
+}
+
+article dl + svg {
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  height: 70px;
+  /* fill: #9A1-1E9; */
+  fill: #EFEFEF;
 }
 
 footer > section {
@@ -343,17 +352,17 @@ form input {
 
 form input::-webkit-input-placeholder {
   font-weight: 400;
-  color: #B1B1B1;
+  color: #A1A1A1;
 }
 
 form input:-ms-input-placeholder {
   font-weight: 400;
-  color: #B1B1B1;
+  color: #A1A1A1;
 }
 
 form input::placeholder {
   font-weight: 400;
-  color: #B1B1B1;
+  color: #A1A1A1;
 }
 
 form input:not(:first-child) {
@@ -394,7 +403,7 @@ form div.methods > input[id='walking']:checked ~ label[for='walking'],
 form div.methods > input[id='bicycling']:checked ~ label[for='bicycling'],
 form div.methods > input[id='driving']:checked ~ label[for='driving'] {
   fill: #FFFFFF;
-  background-color: #9A11E9;
+  background-color: #6EBE48;
 }
 
 form button[name='coordinates'] {
@@ -408,5 +417,5 @@ form button[name='coordinates'] svg {
 
 form button[name='route'] {
   margin-left: auto !important;
-  background-color: #EE0057;
+  background-color: #FD7E34;
 }

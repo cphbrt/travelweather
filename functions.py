@@ -185,7 +185,6 @@ def prod_outgoing_dict(incoming_dict):
         "hourly": []
     }
     lastAccDistance = 0.0
-
     for x in range(0, len(incrementLatLongs)):
         thisForecast = incrementForecasts[x]
         thisTime = incrementArrivalTime[x]
@@ -196,7 +195,6 @@ def prod_outgoing_dict(incoming_dict):
         else:
             fullAddressStr = thisDirections[0]["legs"][-1]["end_address"]
             distance = thisDirections[0]["legs"][-1]["distance"]["text"]
-
         floatDistance = float(distance.split(" ")[0])   
         interimDistance = floatDistance - lastAccDistance
         lastAccDistance = floatDistance
@@ -211,9 +209,7 @@ def prod_outgoing_dict(incoming_dict):
             "city": city,
             "state": state,
             "distance": "{} mi".format(interimDistance)
-
         })
-
     return outgoing_dict
 
 # This has a fake simulation the input we expect to get from index.html and it

@@ -23,6 +23,10 @@ var tw = (function() {
       $('main > *').each(function() {
         var element = $(this);
 
+        if(number == 25) {
+          number = 1;
+        }
+
         element.attr('data-time', number++);
       });
     },

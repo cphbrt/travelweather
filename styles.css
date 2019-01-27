@@ -36,6 +36,10 @@ main {
   flex-direction: column;
 }
 
+main.disable {
+  pointer-events: none !important;
+}
+
 main > * {
   position: relative;
   width: 100%;

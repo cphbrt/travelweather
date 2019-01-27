@@ -1,12 +1,14 @@
 var tw = (function() {
   'use strict';
 
-  var env = 'prod';
+  var env = 'dev';
   var date = new Date();
   var hour = date.getHours();
 
   return {
     date: date,
+
+    main: $('body > main'),
 
     logo: $('div[id="logo"]'),
 
@@ -37,24 +39,20 @@ var tw = (function() {
       });
     },
 
-    loading: function(method) {
+    loading: function(method, button) {
       switch(method) {
         case 'on':
           tw.logo.addClass('loading');
+          tw.main.addClass('disable');
 
-          $('html').on({
-            'disable.click': function(event) {
-              event.preventDefault();
-              console.log('OFF');
-            }
-          });
+          button.prop('disabled', true);
         break;
 
         case 'off':
           tw.logo.removeClass('loading');
+          tw.main.removeClass('disable');
 
-          $('html').off('disable.click');
-          console.log('ON');
+          button.prop('disabled', false);
         break;
       }
     },
@@ -91,14 +89,12 @@ $('button[name="coordinates"]').on({
     if(navigator.geolocation) {
       var input = $('input[name="origin"]');
 
-      input.prop('disabled', true);
-
-      tw.loading('on');
+      tw.loading('on', input);
 
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.prop('disabled', false).val('Your Location');
+        input.val('Your Location');
 
-        tw.loading('off');
+        tw.loading('off', input);
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
@@ -136,9 +132,7 @@ $('form[name="itinerary"]').on({
         articles.remove();
       }
 
-      submit.prop('disabled', true);
-
-      tw.loading('on');
+      tw.loading('on', submit);
 
       $.ajax({
         type: 'POST',
@@ -204,9 +198,9 @@ $('form[name="itinerary"]').on({
           tw.maptime();
           tw.scrolly();
 
-          submit.text('Reroute').prop('disabled', false);
+          submit.text('Reroute');
 
-          tw.loading('off');
+          tw.loading('off', submit);
         }
       });
     }

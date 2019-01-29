@@ -146,8 +146,8 @@ def prod_outgoing_dict(incoming_dict):
     else:
         numIncrements = durationHours
 
-    if numIncrements > 6:
-        numIncrements = 6
+    # if numIncrements > 6:
+    #     numIncrements = 6
 
     iterator = int(len(points) / numIncrements)
 
@@ -159,7 +159,10 @@ def prod_outgoing_dict(incoming_dict):
     incrementArrivalTime.append(0)
     finalvalue = 0
     endedEarly = False
+    counter = 0
     for x in range(iterator, len(points), iterator):
+        if counter > 7:
+            break
         if (x + iterator > len(points)) and (len(points) - x < 2 * int(iterator / 3)):
             x = len(points) - 1
             endedEarly = True
@@ -176,19 +179,24 @@ def prod_outgoing_dict(incoming_dict):
         point_arrival_hour = int(round(point_arrival_sec/60/60))
         incrementArrivalTime.append(point_arrival_hour)
         finalvalue = x
+        counter += 1
     if finalvalue != len(points)-1 and not endedEarly:
-        point_lat, point_long = points[-1]
-        incrementLatLongs.append({"lat": point_lat, "long": point_long})
-        point_directions_response = gmaps.directions(
-            start_location_strAddress,
-            "{},{}".format(point_lat, point_long),
-            mode=incoming_dict["method"],
-            departure_time=datetime.now()
-        )
-        incrementDirections.append(point_directions_response)
-        point_arrival_sec = point_directions_response[0]["legs"][0]["duration"]["value"]
-        point_arrival_hour = int(round(point_arrival_sec/60/60))
-        incrementArrivalTime.append(point_arrival_hour)
+        if counter <= 7:
+            point_lat, point_long = points[-1]
+            incrementLatLongs.append({"lat": point_lat, "long": point_long})
+            point_directions_response = gmaps.directions(
+                start_location_strAddress,
+                "{},{}".format(point_lat, point_long),
+                mode=incoming_dict["method"],
+                departure_time=datetime.now()
+            )
+            incrementDirections.append(point_directions_response)
+            point_arrival_sec = point_directions_response[0]["legs"][0]["duration"]["value"]
+            point_arrival_hour = int(round(point_arrival_sec/60/60))
+            incrementArrivalTime.append(point_arrival_hour)
+
+    
+
 
     # DARK SKY (Weather)
     skyApiKey = os.getenv('SKY_API_KEY')

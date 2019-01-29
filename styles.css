@@ -36,6 +36,15 @@ main {
   flex-direction: column;
 }
 
+main.loading {
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
+
+main.loading [id='logo'] > svg {
+  animation-play-state: running;
+}
+
 main > * {
   position: relative;
   width: 100%;
@@ -185,10 +194,6 @@ header > figure [id='logo'] > svg {
   transform-origin: center center;
 }
 
-header > figure [id='logo'].loading > svg {
-  animation-play-state: running;
-}
-
 @keyframes rotation {
   100% {
     transform: rotate(360deg);
@@ -273,9 +278,11 @@ article hr {
 }
 
 article dl {
+  position: relative;
   width: 100%;
   margin: 0px;
   overflow: hidden;
+  z-index: 1;
 }
 
 article dl > dt,
@@ -313,7 +320,7 @@ article dl > dd[data-fill='temperature']:after {
 
 article dl + svg {
   position: absolute;
-  top: 15px;
+  top: 20px;
   right: 30px;
   height: 70px;
   fill: #EFEFEF;

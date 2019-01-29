@@ -1,12 +1,14 @@
 var tw = (function() {
   'use strict';
 
-  var env = 'dev';
+  var env = 'prod';
   var date = new Date();
   var hour = date.getHours();
 
   return {
     date: date,
+
+    main: $('body > main'),
 
     logo: $('div[id="logo"]'),
 
@@ -37,9 +39,27 @@ var tw = (function() {
       });
     },
 
+    loading: function(method, button) {
+      switch(method) {
+        case 'on':
+          tw.logo.add(tw.main).addClass('loading');
+
+          button.prop('disabled', true);
+        break;
+
+        case 'off':
+          tw.logo.add(tw.main).removeClass('loading');
+
+          button.prop('disabled', false);
+        break;
+      }
+    },
+
     scrolly: function() {
+      var element = $('main > header');
+
       $('html, body').animate({
-        'scrollTop': $('main > article:first-of-type').offset().top,
+        'scrollTop': element.offset().top + element.outerHeight(),
       }, 900, 'swing');
     },
 
@@ -65,16 +85,14 @@ $(function() {
 $('button[name="coordinates"]').on({
   'click': function() {
     if(navigator.geolocation) {
-      var input = $('input[name="origin"]');
+      var button = $(this);
 
-      input.prop('disabled', true);
-
-      tw.logo.addClass('loading');
+      tw.loading('on', button);
 
       navigator.geolocation.getCurrentPosition(function(position) {
-        input.prop('disabled', false).val('Your Location');
+        $('input[name="origin"]').val('Your Location');
 
-        tw.logo.removeClass('loading');
+        tw.loading('off', button);
 
         tw.coordinates.latitude = position.coords.latitude;
         tw.coordinates.longitude = position.coords.longitude;
@@ -87,7 +105,7 @@ $('button[name="coordinates"]').on({
 
 $('form[name="itinerary"]').on({
   'submit': function(event) {
-    var submit = $('button[name="route"]');
+    var button = $('button[name="route"]');
     var articles = $('main > article');
     var formData = new FormData(this);
     var sendData = {
@@ -98,21 +116,21 @@ $('form[name="itinerary"]').on({
     };
 
     if(tw.coordinates.latitude && tw.coordinates.longitude) {
-      sendData.start_location = Object.values(tw.coordinates).join();
+      if(sendData.start_location == 'Your Location') {
+        sendData.start_location = Object.values(tw.coordinates).join();
+      }
     }
 
     if(!sendData.start_location.length || !sendData.end_location.length) {
       alert('Please fill out all input fields to continue.');
-    } else if(JSON.stringify(tw.collection) === JSON.stringify(sendData)) {
+    } else if(JSON.stringify(tw.collection) == JSON.stringify(sendData)) {
       tw.scrolly();
     } else {
       if(articles.length) {
         articles.remove();
       }
 
-      submit.prop('disabled', true);
-
-      tw.logo.addClass('loading');
+      tw.loading('on', button);
 
       $.ajax({
         type: 'POST',
@@ -150,7 +168,7 @@ $('form[name="itinerary"]').on({
                     label.prev().prependTo(label.parent());
                   }
 
-                  item.html(Math.round(hour.temp));
+                  item.text(Math.round(hour.temp));
                 break;
 
                 case 'location':
@@ -158,6 +176,10 @@ $('form[name="itinerary"]').on({
                     hour.city,
                     hour.state
                   ].join(', '));
+                break;
+
+                case 'distance':
+                  item.text(hour.distance);
                 break;
               }
             });
@@ -174,9 +196,9 @@ $('form[name="itinerary"]').on({
           tw.maptime();
           tw.scrolly();
 
-          submit.text('Reroute').prop('disabled', false);
+          button.text('Reroute');
 
-          tw.logo.removeClass('loading');
+          tw.loading('off', button);
         }
       });
     }
